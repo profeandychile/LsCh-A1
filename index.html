@@ -411,7 +411,46 @@ document.getElementById("studentForm").addEventListener("submit",e=>{
  if(saved)showToast("Estudiante agregado correctamente.");
  else showToast("El estudiante se agregó en esta sesión, pero el navegador no permitió guardar los datos. Descarga un respaldo y revisa la configuración del navegador.");
 });
-document.addEventListener("click",e=>{
+document.addEventListener("click", e => {
+  const goto = e.target.closest("[data-goto]");
+  if (goto) {
+    showView(goto.dataset.goto);
+    return;
+  }
+
+  // Abrir las etapas del estudiante seleccionado
+  const openStudent = e.target.closest("[data-open-student]");
+  if (openStudent) {
+    renderStudentDetail(openStudent.dataset.openStudent);
+    return;
+  }
+
+  // Eliminar estudiante
+  const del = e.target.closest("[data-delete-student]");
+  if (del) {
+    const s = studentById(del.dataset.deleteStudent);
+    if (!s) return;
+
+    if (confirm(`¿Eliminar a ${s.name} y todos sus avances? Esta acción no se puede deshacer.`)) {
+      data.students = data.students.filter(x => x.id !== s.id);
+      saveData();
+      renderAll();
+      showToast("Estudiante eliminado.");
+    }
+    return;
+  }
+
+  // Abrir una etapa
+  const stage = e.target.closest("[data-stage-open]");
+  if (stage) {
+    const id = currentStudentId;
+    if (id) {
+      openStage(id, Number(stage.dataset.stageOpen));
+    } else {
+      showToast("Selecciona primero un estudiante.");
+    }
+  }
+});
  const goto=e.target.closest("[data-goto]");if(goto){showView(goto.dataset.goto);return}
  if(options.preserveScroll){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
