@@ -118,6 +118,65 @@ main{background:transparent}
   .home-content{gap:18px}
 }
 
+
+/* Corrección de diseño móvil para las tarjetas de estudiantes */
+@media (max-width: 600px) {
+  .student-row.card {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    align-items: start;
+    justify-content: initial;
+    gap: 12px;
+    padding: 16px;
+  }
+  .student-row.card > .avatar {
+    grid-column: 1;
+    grid-row: 1;
+    width: 44px;
+    height: 44px;
+  }
+  .student-row.card > .student-info {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .student-row.card > .student-info strong {
+    font-size: 1.05rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+  .student-row.card > .student-info small {
+    display: block;
+    margin-top: 4px;
+    font-size: .88rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+  .student-row.card > .student-info .progress {
+    width: 100%;
+  }
+  .student-row.card > .row-actions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    margin-top: 4px;
+  }
+  .student-row.card > .row-actions .btn {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 8px;
+    font-size: .9rem;
+    line-height: 1.25;
+    white-space: normal;
+  }
+}
+
 </style>
 </head>
 <body>
