@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#2456a6">
-<title>LSCh | Lengua de Señas Chilena</title>
+<title>LSCh+ | Lengua de Señas Chilena</title>
 <style>
 :root{--blue:#2456a6;--blue2:#3578d4;--navy:#18365f;--green:#238454;--bg:#f4f7fc;--card:#fff;--text:#203047;--muted:#65758b;--line:#e3eaf3;--red:#b93838;--shadow:0 8px 24px rgba(28,59,100,.08)}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh}.topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:0 22px;position:sticky;top:0;z-index:50}.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--blue);font-size:1.35rem}.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--blue);color:white;display:grid;place-items:center;font-weight:900}.menu-btn{display:none;border:0;background:#edf3fc;color:var(--blue);border-radius:10px;padding:9px 12px;font-size:1.2rem}.layout{display:flex;max-width:1440px;margin:auto}.sidebar{width:250px;flex-shrink:0;padding:20px 14px;min-height:calc(100vh - 68px);background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:7px}.nav-label{font-size:.72rem;color:#8391a5;font-weight:800;letter-spacing:.09em;padding:16px 12px 6px}.nav-btn{border:0;background:transparent;color:#4a5b72;text-align:left;padding:12px 13px;border-radius:12px;display:flex;gap:11px;align-items:center;font-weight:700}.nav-btn .ico{width:23px;text-align:center;font-size:1.15rem}.nav-btn:hover,.nav-btn.active{background:#eaf2ff;color:var(--blue)}.sidebar-spacer{flex:1}.creator-mini{border-top:1px solid var(--line);padding:16px 12px 6px;color:var(--muted);font-size:.83rem;line-height:1.5}.creator-mini strong{color:var(--blue)}main{min-width:0;flex:1;padding:28px;max-width:1180px;margin:0 auto}.view{display:none}.view.active{display:block}.home-only.active{min-height:calc(100vh - 124px);display:flex;align-items:center;justify-content:center}.home-nfc-wrap{width:min(380px,100%)}
@@ -129,16 +129,16 @@ main{background:transparent}
 <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 <div class="layout">
 <aside class="sidebar" id="sidebar">
-  <button class="nav-btn active" data-view="home"><span class="ico">⌂</span>Inicio</button>
-  <button class="nav-btn" data-view="students"><span class="ico">♙</span>Ingresar estudiantes</button>
-  <button class="nav-btn" data-view="overall"><span class="ico">▥</span>Porcentaje de logro</button>
+  <button class="nav-btn active" data-view="home"><span class="ico">◉</span>Inicio</button>
+  <button class="nav-btn" data-view="students"><span class="ico">◉</span>Ingresar estudiantes</button>
+  <button class="nav-btn" data-view="overall"><span class="ico">◉</span>Porcentaje de logro</button>
   <div class="nav-label">HERRAMIENTAS</div>
-  <button class="nav-btn" data-view="nfc"><span class="ico">◉</span>Respaldo NFC</button>
-  <button class="nav-btn" data-view="backup"><span class="ico">▤</span>Respaldo de datos</button>
+  <button class="nav-btn" data-view="nfc"><span class="ico">◉</span>Tarjeta NFC</button>
+  <button class="nav-btn" data-view="backup"><span class="ico">◉</span>Respaldo de datos</button>
   <button class="nav-btn" data-view="help"><span class="ico">ⓘ</span>Cómo se usa la app</button>
   <div class="sidebar-spacer"></div>
-  <button class="nav-btn" data-view="about"><span class="ico">✦</span>ProfeAndy</button>
-  <div class="creator-mini"><strong>LSCh</strong><br>Aprender, comunicar e incluir.</div>
+  <button class="nav-btn" data-view="about"><span class="ico">✜</span>profeandy_</button>
+  <div class="creator-mini"><strong>LSCh+</strong><br>.</div>
 </aside>
 <main>
 <section class="view active home-only" id="view-home">
@@ -148,7 +148,7 @@ main{background:transparent}
       <h1>LSCh</h1>
       <p>App Lengua de Señas Chilena</p>
     </div>
-    <button class="btn big home-nfc-button" id="homeNfcBtn">NFC CARD</button>
+    <button class="btn big home-nfc-button" id="homeNfcBtn">◉NFC CARD</button>
     <div class="card home-overall-card">
       <div class="home-overall-heading">
         <div><h2>Porcentaje general de aprendizajes</h2><p>Avance conjunto de todos los estudiantes</p></div>
@@ -201,17 +201,16 @@ main{background:transparent}
   <p class="page-subtitle">Genera un enlace para asociarlo a una etiqueta NFC y abrir el perfil del estudiante.</p>
   <div class="nfc-panel">
     <h2>◉ Acceso rápido NFC</h2>
-    <p>Selecciona un estudiante y genera el enlace. 
-       Copia el enlace y prográmalo en una etiqueta NFC en la aplicación NFC Tools compatible.</p>
-    <div class="field"><label for="nfcStudent" style="color:white">Estudiante</label><select class="input" id="nfcStudent"><option value="">Selecciona un estudiante</option></select></div>
+    <p>Selecciona un estudiante y genera el enlace. Copia el enlace y prográmalo en una etiqueta NFC en la aplicación NFC Tools.</p>
+    <div class="field"><label for="nfcStudent" style="color:white">Estudiante:</label><select class="input" id="nfcStudent"><option value="">Selecciona un estudiante</option></select></div>
     <button class="btn" id="generateNfc" style="background:white;color:#2456a6">Generar enlace NFC</button>
     <div id="nfcResult" class="hidden" style="margin-top:16px">
       <div class="field"><label for="nfcLink" style="color:white">Enlace generado</label><input class="input" id="nfcLink" readonly></div>
       <div class="row-actions"><button class="btn" id="copyNfc" style="background:white;color:#2456a6">Copiar enlace</button><button class="btn" id="openNfc" style="background:#153b78">Abrir perfil</button></div>
     </div>
   </div>
-  <div class="notice">Importante: este prototipo guarda los datos en el navegador del dispositivo. El enlace NFC funciona si el perfil existe en el mismo navegador con los datos guardados. Para compartir datos entre varios celulares se necesita una base de datos protegida.</div>
-  <div class="card"><h3>¿Cómo se usa?</h3><p class="muted">Genera el enlace, cópialo y escríbelo en la etiqueta NFC usando una app de escritura NFC. En un iPhone compatible, acerca la parte superior del teléfono a la etiqueta y toca la notificación que aparezca.</p></div>
+  <div class="notice">Importante: este prototipo guarda los datos en el navegador de tu dispositivo. El enlace NFC funciona si el perfil existe en el mismo navegador con los datos guardados. Para compartir datos entre varios celulares se necesita una base de datos protegida.</div>
+  <div class="card"><h3>¿Cómo se usa?</h3><p class="muted">Acerca la parte superior del teléfono a la tarjeta y toca la notificación que aparezca.</p></div>
 </section>
 
 <section class="view" id="view-backup">
