@@ -5,216 +5,709 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#123b50">
-<title>LSCh A1</title>
+<title>LSCh A1 | Colegio Aurora de Chile</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f1f6f8;color:#203541;font-family:Arial,sans-serif}
-header{background:#123b50;color:white;padding:24px 20px;border-radius:0 0 25px 25px}
-header h1{margin:8px 0;font-size:30px}
-header p{margin:0;font-size:14px}
-main{padding:16px;max-width:650px;margin:auto}
-.card{background:white;padding:18px;border-radius:18px;margin-bottom:15px;box-shadow:0 3px 12px #123b5010}
-h2{font-size:19px;margin-top:0}
-label{display:block;margin:12px 0 6px;font-size:14px;font-weight:bold}
-input,select,textarea{width:100%;padding:13px;border:1px solid #cbd8df;border-radius:10px;font-size:16px;background:white}
-textarea{min-height:75px}
-button{border:0;background:#138a99;color:white;padding:13px 16px;border-radius:10px;font-size:15px;font-weight:bold;cursor:pointer}
-button.secondary{background:#e6f1f3;color:#123b50}
-button.danger{background:#a63b43}
-.full{width:100%;margin-top:14px}
-nav{display:flex;gap:7px;overflow-x:auto;margin-bottom:15px}
-nav button{white-space:nowrap;font-size:13px;padding:12px}
-.hidden{display:none}
-.entry{padding:12px;margin-top:10px;background:#f1f6f8;border-radius:12px}
-small{color:#607783}
-.badge{display:inline-block;background:#d9f3e8;color:#17654e;padding:5px 9px;border-radius:20px;font-size:12px}
-footer{text-align:center;color:#607783;font-size:12px;padding:20px}
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --azul: #123b50;
+  --turquesa: #138a99;
+  --fondo: #f1f6f8;
+  --texto: #203541;
+  --borde: #cbd8df;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+header {
+  background: var(--azul);
+  color: white;
+  padding: 22px 18px;
+  border-radius: 0 0 24px 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 850px;
+  margin: auto;
+}
+
+.school-logo {
+  display: block;
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.brand-text {
+  min-width: 0;
+}
+
+.brand-text small {
+  color: #bce9e4;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+header h1 {
+  margin: 5px 0;
+  font-size: 29px;
+  line-height: 1.2;
+}
+
+header p {
+  margin: 0;
+  font-size: 14px;
+}
+
+main {
+  width: 100%;
+  max-width: 680px;
+  margin: auto;
+  padding: 16px;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 15px;
+}
+
+button {
+  border: 0;
+  background: var(--turquesa);
+  color: white;
+  padding: 13px 15px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #e6a23c;
+  outline-offset: 2px;
+}
+
+nav button {
+  flex: 1 1 auto;
+  font-size: 13px;
+  white-space: normal;
+}
+
+button.secondary {
+  background: #e6f1f3;
+  color: var(--azul);
+}
+
+button.danger {
+  background: #a63b43;
+  color: white;
+}
+
+.full {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.card {
+  background: white;
+  padding: 18px;
+  border-radius: 18px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 12px #123b5010;
+  overflow-wrap: anywhere;
+}
+
+h2 {
+  font-size: 19px;
+  margin: 0 0 12px;
+}
+
+label {
+  display: block;
+  margin: 13px 0 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: inherit;
+  background: white;
+  color: var(--texto);
+}
+
+textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.entry {
+  padding: 13px;
+  margin-top: 10px;
+  background: var(--fondo);
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+
+.entry button {
+  margin-top: 8px;
+}
+
+.badge {
+  display: inline-block;
+  background: #d9f3e8;
+  color: #17654e;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+footer {
+  text-align: center;
+  color: #607783;
+  font-size: 12px;
+  padding: 20px 10px;
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 17px 12px;
+    border-radius: 0 0 18px 18px;
+  }
+
+  .brand {
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .school-logo {
+    width: 62px;
+    height: 62px;
+    border-radius: 9px;
+  }
+
+  .brand-text small {
+    font-size: 10px;
+  }
+
+  header h1 {
+    font-size: 23px;
+  }
+
+  header p {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  main {
+    padding: 12px;
+  }
+
+  nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  nav button {
+    width: 100%;
+    padding: 12px 7px;
+    font-size: 13px;
+  }
+
+  .card {
+    padding: 15px;
+    border-radius: 14px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .entry button {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 350px) {
+  .school-logo {
+    width: 52px;
+    height: 52px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  .brand-text small {
+    font-size: 9px;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<small style="color:#bce9e4">COLEGIO AURORA DE CHILE</small>
-<h1>🤟 LSCh A1</h1>
-<p>Lengua de Señas Chilena: aprendizaje y seguimiento</p>
+  <div class="brand">
+    <img
+      src="logo-colegio.jpg"
+      alt="Escudo del Colegio Aurora de Chile"
+      class="school-logo"
+    >
+    <div class="brand-text">
+      <small>COLEGIO AURORA DE CHILE</small>
+      <h1>🤟 LSCh A1</h1>
+      <p>Lengua de Señas Chilena: aprendizaje y seguimiento</p>
+    </div>
+  </div>
 </header>
+
 <main>
-<nav>
-<button onclick="show('inicio')">Inicio</button>
-<button onclick="show('estudiantes')">Estudiantes</button>
-<button onclick="show('registro')">Registrar aprendizaje</button>
-<button onclick="show('historial')">Historial</button>
+
+<nav aria-label="Navegación principal">
+  <button onclick="show('inicio')">Inicio</button>
+  <button onclick="show('estudiantes')">Estudiantes</button>
+  <button onclick="show('registro')">Registrar aprendizaje</button>
+  <button onclick="show('historial')">Historial</button>
 </nav>
 
 <section id="inicio" class="view">
-<div class="card">
-<h2>¡Bienvenido a LSCh A1!</h2>
-<p>Una herramienta educativa para acompañar y registrar el aprendizaje de la Lengua de Señas Chilena.</p>
-<span class="badge">Prototipo inicial</span>
-</div>
-<div class="card">
-<h2>Resumen</h2>
-<p>Estudiantes registrados: <strong id="totalEst">0</strong></p>
-<p>Aprendizajes registrados: <strong id="totalReg">0</strong></p>
-<button class="full" onclick="show('estudiantes')">+ Agregar estudiante</button>
-<button class="full secondary" onclick="show('registro')">Registrar aprendizaje</button>
-</div>
-<div class="card">
-<h2>Importante</h2>
-<p>Los datos de esta versión se guardan en este navegador. Exporta respaldos periódicamente. No ingreses información sensible de estudiantes reales durante las pruebas.</p>
-</div>
+  <div class="card">
+    <h2>¡Bienvenido a LSCh A1!</h2>
+    <p>
+      Una herramienta educativa para acompañar y registrar
+      el aprendizaje de la Lengua de Señas Chilena.
+    </p>
+    <span class="badge">Prototipo educativo</span>
+  </div>
+
+  <div class="card">
+    <h2>Resumen</h2>
+    <p>Estudiantes registrados: <strong id="totalEst">0</strong></p>
+    <p>Aprendizajes registrados: <strong id="totalReg">0</strong></p>
+    <button class="full" onclick="show('estudiantes')">
+      + Agregar estudiante
+    </button>
+    <button class="full secondary" onclick="show('registro')">
+      Registrar aprendizaje
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>Importante</h2>
+    <p>
+      Los datos se guardan en el navegador de este dispositivo.
+      Exporta respaldos periódicamente. Durante las pruebas,
+      utiliza datos ficticios y evita ingresar información sensible.
+    </p>
+  </div>
 </section>
 
 <section id="estudiantes" class="view hidden">
-<div class="card">
-<h2>Registrar estudiante</h2>
-<label for="nombre">Nombre o código del estudiante</label>
-<input id="nombre" placeholder="Ej.: EST-001">
-<label for="curso">Curso</label>
-<input id="curso" placeholder="Ej.: 1° Básico A">
-<button class="full" onclick="addStudent()">Guardar estudiante</button>
-</div>
-<div class="card">
-<h2>Estudiantes registrados</h2>
-<div id="listaEst"></div>
-</div>
+  <div class="card">
+    <h2>Registrar estudiante</h2>
+
+    <label for="nombre">Nombre o código del estudiante</label>
+    <input id="nombre" maxlength="100" placeholder="Ej.: EST-001">
+
+    <label for="curso">Curso</label>
+    <input id="curso" maxlength="60" placeholder="Ej.: 1° Básico A">
+
+    <button class="full" onclick="addStudent()">
+      Guardar estudiante
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>Estudiantes registrados</h2>
+    <div id="listaEst"></div>
+  </div>
 </section>
 
 <section id="registro" class="view hidden">
-<div class="card">
-<h2>Registrar aprendizaje</h2>
-<label for="estudiante">Estudiante</label>
-<select id="estudiante"><option value="">Primero agrega un estudiante</option></select>
-<label for="categoria">Categoría de señas</label>
-<select id="categoria">
-<option>Saludos y cortesía</option>
-<option>Números</option>
-<option>Familia</option>
-<option>Colores</option>
-<option>Emociones</option>
-<option>Comunidad escolar</option>
-<option>Otras señas</option>
-</select>
-<label for="sena">Seña trabajada</label>
-<input id="sena" placeholder="Ej.: Hola">
-<label for="resultado">Desempeño observado</label>
-<select id="resultado">
-<option>Lo realiza de forma autónoma</option>
-<option>Lo realiza con apoyo</option>
-<option>En proceso de aprendizaje</option>
-<option>Requiere más práctica</option>
-</select>
-<label for="fechaActividad">Fecha de la actividad</label>
-<input id="fechaActividad" type="date">
-<label for="observacion">Observación (opcional)</label>
-<textarea id="observacion" placeholder="Anota brevemente el avance observado"></textarea>
-<button class="full" onclick="addRecord()">Guardar aprendizaje</button>
-</div>
+  <div class="card">
+    <h2>Registrar aprendizaje</h2>
+
+    <label for="estudiante">Estudiante</label>
+    <select id="estudiante">
+      <option value="">Primero agrega un estudiante</option>
+    </select>
+
+    <label for="categoria">Categoría de señas</label>
+    <select id="categoria">
+      <option>Saludos y cortesía</option>
+      <option>Números</option>
+      <option>Familia</option>
+      <option>Colores</option>
+      <option>Emociones</option>
+      <option>Comunidad escolar</option>
+      <option>Otras señas</option>
+    </select>
+
+    <label for="sena">Seña trabajada</label>
+    <input id="sena" maxlength="150" placeholder="Ej.: Hola">
+
+    <label for="resultado">Desempeño observado</label>
+    <select id="resultado">
+      <option>Lo realiza de forma autónoma</option>
+      <option>Lo realiza con apoyo</option>
+      <option>En proceso de aprendizaje</option>
+      <option>Requiere más práctica</option>
+    </select>
+
+    <label for="fechaActividad">Fecha de la actividad</label>
+    <input id="fechaActividad" type="date">
+
+    <label for="observacion">Observación (opcional)</label>
+    <textarea
+      id="observacion"
+      maxlength="1000"
+      placeholder="Anota brevemente el avance observado"
+    ></textarea>
+
+    <button class="full" onclick="addRecord()">
+      Guardar aprendizaje
+    </button>
+  </div>
 </section>
 
 <section id="historial" class="view hidden">
-<div class="card">
-<h2>Historial de aprendizajes</h2>
-<label for="filtro">Filtrar por estudiante</label>
-<select id="filtro" onchange="renderRecords()"><option value="">Todos los estudiantes</option></select>
-<div id="listaRegistros"></div>
-<button class="full secondary" onclick="exportData()">Exportar respaldo JSON</button>
-<label for="importFile">Restaurar respaldo JSON</label>
-<input id="importFile" type="file" accept=".json,application/json">
-<button class="full secondary" onclick="importData()">Restaurar respaldo seleccionado</button>
-<p><small>Restaurar reemplazará los datos actuales. Exporta un respaldo antes de hacerlo.</small></p>
-</div>
+  <div class="card">
+    <h2>Historial de aprendizajes</h2>
+
+    <label for="filtro">Filtrar por estudiante</label>
+    <select id="filtro" onchange="renderRecords()">
+      <option value="">Todos los estudiantes</option>
+    </select>
+
+    <div id="listaRegistros"></div>
+
+    <button class="full secondary" onclick="exportData()">
+      Exportar respaldo JSON
+    </button>
+
+    <label for="importFile">Restaurar respaldo JSON</label>
+    <input id="importFile" type="file" accept=".json,application/json">
+
+    <button class="full secondary" onclick="importData()">
+      Restaurar respaldo seleccionado
+    </button>
+
+    <p>
+      <small>
+        Restaurar reemplazará los datos actuales.
+        Exporta un respaldo antes de hacerlo.
+      </small>
+    </p>
+  </div>
 </section>
-<footer>LSCh A1 · Prototipo educativo · Colegio Aurora de Chile</footer>
+
+<footer>
+  LSCh A1 · Prototipo educativo · Colegio Aurora de Chile
+</footer>
+
 </main>
+
 <script>
-const KEY='lsch_a1_prototype_v1';
-let data={students:[],records:[]};
-try{
- const saved=localStorage.getItem(KEY);
- if(saved){const parsed=JSON.parse(saved);if(Array.isArray(parsed.students)&&Array.isArray(parsed.records))data=parsed;}
-}catch(e){}
-function save(){localStorage.setItem(KEY,JSON.stringify(data));render();}
-function show(id){
- document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));
- document.getElementById(id).classList.remove('hidden');
- render();
- window.scrollTo(0,0);
+const KEY = 'lsch_a1_prototype_v1';
+let data = { students: [], records: [] };
+
+try {
+  const saved = localStorage.getItem(KEY);
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    if (
+      Array.isArray(parsed.students) &&
+      Array.isArray(parsed.records)
+    ) {
+      data = parsed;
+    }
+  }
+} catch (e) {
+  console.error('No se pudieron leer los datos guardados.', e);
 }
-function addStudent(){
- const name=document.getElementById('nombre').value.trim();
- const course=document.getElementById('curso').value.trim();
- if(!name){alert('Escribe el nombre o código del estudiante.');return;}
- if(data.students.some(s=>s.name.toLowerCase()===name.toLowerCase())){alert('Ese estudiante ya está registrado.');return;}
- data.students.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name,course,createdAt:new Date().toISOString()});
- document.getElementById('nombre').value='';
- document.getElementById('curso').value='';
- save();alert('Estudiante guardado correctamente.');
+
+function localDateString(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
-function addRecord(){
- const studentId=document.getElementById('estudiante').value;
- const sign=document.getElementById('sena').value.trim();
- const activityDate=document.getElementById('fechaActividad').value;
- if(!studentId){alert('Primero registra y selecciona un estudiante.');return;}
- if(!sign){alert('Escribe la seña trabajada.');return;}
- if(!activityDate){alert('Selecciona la fecha de la actividad.');return;}
- data.records.unshift({
- id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),
- studentId,category:document.getElementById('categoria').value,
- sign,result:document.getElementById('resultado').value,
- activityDate,observation:document.getElementById('observacion').value.trim(),
- createdAt:new Date().toISOString()
- });
- document.getElementById('sena').value='';
- document.getElementById('observacion').value='';
- save();alert('Aprendizaje registrado correctamente.');show('historial');
+
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(data));
+    render();
+  } catch (e) {
+    alert('No se pudieron guardar los datos. Exporta un respaldo y revisa el espacio disponible.');
+    console.error(e);
+  }
 }
-function render(){
- document.getElementById('totalEst').textContent=data.students.length;
- document.getElementById('totalReg').textContent=data.records.length;
- const options=data.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)}${s.course?' · '+esc(s.course):''}</option>`).join('');
- document.getElementById('estudiante').innerHTML='<option value="">Selecciona un estudiante</option>'+options;
- const filter=document.getElementById('filtro'),old=filter.value;
- filter.innerHTML='<option value="">Todos los estudiantes</option>'+options;
- if(data.students.some(s=>s.id===old))filter.value=old;
- document.getElementById('listaEst').innerHTML=data.students.length?data.students.map(s=>
- `<div class="entry"><strong>${esc(s.name)}</strong><br><small>${esc(s.course||'Curso no indicado')}</small><br><button class="secondary" onclick="selectStudent('${esc(s.id)}')">Registrar aprendizaje</button> <button class="danger" onclick="removeStudent('${esc(s.id)}')">Eliminar</button></div>`
- ).join(''):'<p>Aún no hay estudiantes.</p>';
- renderRecords();
+
+function show(id) {
+  document.querySelectorAll('.view').forEach(view => {
+    view.classList.add('hidden');
+  });
+
+  document.getElementById(id).classList.remove('hidden');
+  render();
+  window.scrollTo(0, 0);
 }
-function selectStudent(id){show('registro');document.getElementById('estudiante').value=id;}
-function removeStudent(id){
- if(!confirm('¿Eliminar este estudiante y todo su historial? Esta acción no se puede deshacer.'))return;
- data.students=data.students.filter(s=>s.id!==id);
- data.records=data.records.filter(r=>r.studentId!==id);
- save();
+
+function addStudent() {
+  const name = document.getElementById('nombre').value.trim();
+  const course = document.getElementById('curso').value.trim();
+
+  if (!name) {
+    alert('Escribe el nombre o código del estudiante.');
+    return;
+  }
+
+  if (data.students.some(s => s.name.toLowerCase() === name.toLowerCase())) {
+    alert('Ese estudiante ya está registrado.');
+    return;
+  }
+
+  data.students.push({
+    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+    name,
+    course,
+    createdAt: new Date().toISOString()
+  });
+
+  document.getElementById('nombre').value = '';
+  document.getElementById('curso').value = '';
+
+  save();
+  alert('Estudiante guardado correctamente.');
 }
-function renderRecords(){
- const filter=document.getElementById('filtro').value;
- const records=data.records.filter(r=>!filter||r.studentId===filter);
- document.getElementById('listaRegistros').innerHTML=records.length?records.map(r=>{
- const s=data.students.find(x=>x.id===r.studentId);
- return `<div class="entry"><strong>${esc(s?s.name:'Estudiante eliminado')}</strong><br><span class="badge">${esc(r.result)}</span><p><strong>Seña:</strong> ${esc(r.sign)}<br><strong>Categoría:</strong> ${esc(r.category)}<br><strong>Fecha actividad:</strong> ${esc(r.activityDate)}<br><strong>Registrado:</strong> ${esc(new Date(r.createdAt).toLocaleString('es-CL'))}</p>${r.observation?'<p>'+esc(r.observation)+'</p>':''}</div>`;
- }).join(''):'<p>No hay registros para mostrar.</p>';
+
+function addRecord() {
+  const studentId = document.getElementById('estudiante').value;
+  const sign = document.getElementById('sena').value.trim();
+  const activityDate = document.getElementById('fechaActividad').value;
+
+  if (!studentId) {
+    alert('Primero registra y selecciona un estudiante.');
+    return;
+  }
+
+  if (!sign) {
+    alert('Escribe la seña trabajada.');
+    return;
+  }
+
+  if (!activityDate) {
+    alert('Selecciona la fecha de la actividad.');
+    return;
+  }
+
+  data.records.unshift({
+    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+    studentId,
+    category: document.getElementById('categoria').value,
+    sign,
+    result: document.getElementById('resultado').value,
+    activityDate,
+    observation: document.getElementById('observacion').value.trim(),
+    createdAt: new Date().toISOString()
+  });
+
+  document.getElementById('sena').value = '';
+  document.getElementById('observacion').value = '';
+
+  save();
+  alert('Aprendizaje registrado correctamente.');
+  show('historial');
 }
-function esc(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function exportData(){
- const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
- const url=URL.createObjectURL(blob),a=document.createElement('a');
- a.href=url;a.download='respaldo-lsch-a1.json';a.click();URL.revokeObjectURL(url);
+
+function render() {
+  document.getElementById('totalEst').textContent = data.students.length;
+  document.getElementById('totalReg').textContent = data.records.length;
+
+  const options = data.students.map(s =>
+    `<option value="${esc(s.id)}">${esc(s.name)}${s.course ? ' · ' + esc(s.course) : ''}</option>`
+  ).join('');
+
+  const studentSelect = document.getElementById('estudiante');
+  const previousStudent = studentSelect.value;
+
+  studentSelect.innerHTML =
+    '<option value="">Selecciona un estudiante</option>' + options;
+
+  if (data.students.some(s => s.id === previousStudent)) {
+    studentSelect.value = previousStudent;
+  }
+
+  const filter = document.getElementById('filtro');
+  const previousFilter = filter.value;
+
+  filter.innerHTML =
+    '<option value="">Todos los estudiantes</option>' + options;
+
+  if (data.students.some(s => s.id === previousFilter)) {
+    filter.value = previousFilter;
+  }
+
+  document.getElementById('listaEst').innerHTML =
+    data.students.length
+      ? data.students.map(s =>
+        `<div class="entry">
+          <strong>${esc(s.name)}</strong><br>
+          <small>${esc(s.course || 'Curso no indicado')}</small><br>
+          <button class="secondary" onclick="selectStudent('${esc(s.id)}')">
+            Registrar aprendizaje
+          </button>
+          <button class="danger" onclick="removeStudent('${esc(s.id)}')">
+            Eliminar
+          </button>
+        </div>`
+      ).join('')
+      : '<p>Aún no hay estudiantes.</p>';
+
+  renderRecords();
 }
-async function importData(){
- const file=document.getElementById('importFile').files[0];
- if(!file){alert('Selecciona primero un archivo JSON.');return;}
- if(!confirm('Esto reemplazará los datos actuales. ¿Ya exportaste un respaldo?'))return;
- try{
- const parsed=JSON.parse(await file.text());
- if(!Array.isArray(parsed.students)||!Array.isArray(parsed.records))throw Error();
- data=parsed;save();alert('Respaldo restaurado.');
- }catch(e){alert('El archivo no es válido para LSCh A1.');}
+
+function selectStudent(id) {
+  show('registro');
+  document.getElementById('estudiante').value = id;
 }
-document.getElementById('fechaActividad').value=new Date().toLocaleDateString('en-CA');
+
+function removeStudent(id) {
+  if (!confirm('¿Eliminar este estudiante y todo su historial? Esta acción no se puede deshacer.')) {
+    return;
+  }
+
+  data.students = data.students.filter(s => s.id !== id);
+  data.records = data.records.filter(r => r.studentId !== id);
+  save();
+}
+
+function renderRecords() {
+  const filter = document.getElementById('filtro').value;
+
+  const records = data.records.filter(r =>
+    !filter || r.studentId === filter
+  );
+
+  document.getElementById('listaRegistros').innerHTML =
+    records.length
+      ? records.map(r => {
+        const student = data.students.find(s => s.id === r.studentId);
+
+        return `<div class="entry">
+          <strong>${esc(student ? student.name : 'Estudiante eliminado')}</strong><br>
+          <span class="badge">${esc(r.result)}</span>
+          <p>
+            <strong>Seña:</strong> ${esc(r.sign)}<br>
+            <strong>Categoría:</strong> ${esc(r.category)}<br>
+            <strong>Fecha actividad:</strong> ${esc(r.activityDate)}<br>
+            <strong>Registrado:</strong> ${esc(new Date(r.createdAt).toLocaleString('es-CL'))}
+          </p>
+          ${r.observation ? '<p>' + esc(r.observation) + '</p>' : ''}
+        </div>`;
+      }).join('')
+      : '<p>No hay registros para mostrar.</p>';
+}
+
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[char]);
+}
+
+function exportData() {
+  const blob = new Blob(
+    [JSON.stringify(data, null, 2)],
+    { type: 'application/json' }
+  );
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+
+  link.href = url;
+  link.download = 'respaldo-lsch-a1.json';
+  link.click();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function importData() {
+  const file = document.getElementById('importFile').files[0];
+
+  if (!file) {
+    alert('Selecciona primero un archivo JSON.');
+    return;
+  }
+
+  if (!confirm('Esto reemplazará los datos actuales. ¿Ya exportaste un respaldo?')) {
+    return;
+  }
+
+  try {
+    const parsed = JSON.parse(await file.text());
+
+    if (
+      !parsed ||
+      !Array.isArray(parsed.students) ||
+      !Array.isArray(parsed.records)
+    ) {
+      throw new Error('Formato no válido');
+    }
+
+    data = parsed;
+    save();
+    alert('Respaldo restaurado.');
+  } catch (e) {
+    alert('El archivo no es válido para LSCh A1.');
+  }
+}
+
+document.getElementById('fechaActividad').value = localDateString();
 render();
 </script>
+
 </body>
 </html>
 ```
