@@ -5,171 +5,203 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#5b45c6">
-<title>LSCh A1 | Aprendo Lengua de Señas Chilena</title>
+<title>LSCh A1 | Aprende Lengua de Señas Chilena</title>
+
 <style>
-:root {
-  --primary:#5b45c6; --primary2:#7c68ed; --bg:#f5f4fb;
-  --card:#fff; --text:#25243a; --muted:#77758b;
-  --green:#16845b; --border:#e8e5f1; --gold:#f5b82e;
+:root{
+  --primary:#5b45c6;
+  --primary2:#8974f5;
+  --bg:#f5f4fb;
+  --text:#29263e;
+  --muted:#77758b;
+  --border:#e8e5f1;
+  --green:#16845b;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);
-  font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
 button,input,select{font:inherit}
 button{cursor:pointer}
-header{background:linear-gradient(135deg,#4c38b1,#8974f5);
-  color:white;padding:22px 16px}
-.header-inner{max-width:1100px;margin:auto;display:flex;
-  align-items:center;gap:14px}
-.logo{width:64px;height:64px;object-fit:contain;background:white;
-  border-radius:16px;padding:5px}
-header h1{margin:0;font-size:26px}
-header p{margin:6px 0 0;opacity:.9;font-size:14px}
-main{max-width:1100px;margin:auto;padding:18px 14px 50px}
-nav{display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px}
-nav button{border:0;background:white;border-radius:12px;padding:12px 15px;
-  white-space:nowrap;color:var(--text);font-weight:bold}
+header{
+  min-height:100px;
+  background:linear-gradient(135deg,#4c38b1,#8974f5);
+  color:white;padding:17px 22px;
+  display:flex;align-items:center;gap:15px;
+  position:relative;z-index:30
+}
+.logo{width:60px;height:60px;object-fit:contain;background:white;border-radius:13px;padding:4px}
+.brand{display:flex;align-items:center;gap:14px;flex:1}
+header h1{font-size:25px;margin:0}
+header p{font-size:13px;margin:5px 0 0}
+.menu-toggle{
+  border:1px solid #ffffff70;background:#ffffff20;color:white;
+  padding:10px 13px;border-radius:10px;font-size:20px
+}
+nav{
+  position:fixed;left:0;top:100px;bottom:0;width:245px;
+  background:white;border-right:1px solid var(--border);
+  padding:20px 13px;display:flex;flex-direction:column;gap:7px;
+  overflow-y:auto;z-index:25
+}
+nav button{
+  width:100%;text-align:left;border:0;background:transparent;
+  color:var(--text);padding:13px 14px;border-radius:11px;
+  font-weight:bold
+}
+nav button:hover{background:#f0edff}
 nav button.active{background:var(--primary);color:white}
+.nav-caption{font-size:11px;color:var(--muted);padding:12px 12px 3px;font-weight:bold;text-transform:uppercase;letter-spacing:1px}
+main{margin-left:245px;padding:22px;max-width:1500px}
 .panel{display:none}
 .panel.active{display:block}
-.card{background:var(--card);border:1px solid var(--border);
-  border-radius:18px;padding:18px;margin-bottom:14px;
-  box-shadow:0 3px 12px #2e205008}
-h2{font-size:22px;margin:0 0 8px}
-h3{font-size:17px;margin:0 0 10px}
-p{line-height:1.5}
+.card{
+  background:white;border:1px solid var(--border);border-radius:17px;
+  padding:18px;margin-bottom:14px;box-shadow:0 3px 12px #2e205008
+}
+h2{font-size:22px;margin:0 0 10px}
+h3{font-size:16px;margin:0 0 9px}
+p{line-height:1.45}
 .muted{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
 .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.stat{background:#f0edff;border-radius:14px;padding:14px}
-.stat strong{display:block;font-size:25px;color:var(--primary);margin-bottom:5px}
-button.primary,.primary{background:var(--primary);color:white;border:0;
-  padding:12px 15px;border-radius:11px;font-weight:bold}
-button.secondary{background:#efecff;color:var(--primary);border:0;
-  padding:10px 13px;border-radius:10px;font-weight:bold}
-button.danger{background:#fff0f0;color:#b42323;border:0;
-  padding:10px 13px;border-radius:10px;font-weight:bold}
+.stat{background:#f0edff;border-radius:12px;padding:13px}
+.stat strong{display:block;font-size:23px;color:var(--primary);margin-bottom:4px}
+button.primary,button.secondary,button.danger{border:0;border-radius:10px;padding:11px 13px;font-weight:bold}
+button.primary{background:var(--primary);color:white}
+button.secondary{background:#efecff;color:var(--primary)}
+button.danger{background:#fff0f0;color:#b42323}
 button:disabled{opacity:.45;cursor:not-allowed}
-input,select{width:100%;padding:12px;border:1px solid #dcd7eb;
-  border-radius:10px;background:white;color:var(--text)}
-label{display:block;font-size:13px;font-weight:bold;margin:12px 0 6px}
+input,select{width:100%;padding:11px;border:1px solid #dcd7eb;border-radius:9px;background:white;color:var(--text)}
+label{display:block;font-size:13px;font-weight:bold;margin:11px 0 6px}
 .formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .student-list,.stage-list{display:grid;gap:10px}
-.student-row{display:flex;align-items:center;justify-content:space-between;
-  gap:12px;border:1px solid var(--border);padding:13px;border-radius:13px}
+.student-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--border);padding:13px;border-radius:12px}
 .student-row strong{display:block;margin-bottom:5px}
-.stage-card{border:1px solid var(--border);border-radius:15px;
-  padding:15px;background:white}
-.stage-card h3{margin:8px 0}
-.stage-card p{font-size:13px;color:var(--muted);margin:6px 0 12px}
-.stage-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
-.tag{font-size:11px;background:#efecff;color:var(--primary);
-  border-radius:20px;padding:5px 8px;font-weight:bold}
-.locked{opacity:.65}
-.progress{height:9px;background:#e9e6f3;border-radius:20px;overflow:hidden}
-.progress div{height:100%;background:linear-gradient(90deg,#6c51d8,#a18fff);
-  width:0%;transition:width .2s}
+.stage-card{border:1px solid var(--border);border-radius:14px;padding:15px;background:white}
+.stage-top{display:flex;justify-content:space-between;gap:8px}
+.stage-card h3{margin:10px 0}
+.stage-card p{font-size:13px;color:var(--muted)}
+.tag{font-size:11px;background:#efecff;color:var(--primary);border-radius:20px;padding:5px 8px;font-weight:bold}
+.locked{opacity:.55}
+.progress{height:8px;background:#e9e6f3;border-radius:20px;overflow:hidden}
+.progress div{height:100%;background:linear-gradient(90deg,#6c51d8,#a18fff);transition:width .2s}
 .learn-row{padding:13px 0;border-bottom:1px solid var(--border)}
-.learn-row:last-child{border-bottom:0}
 .learn-title{display:flex;align-items:flex-start;gap:9px}
 .learn-title input[type=checkbox]{width:20px;height:20px;flex-shrink:0;margin-top:2px}
-.learn-title strong{font-size:14px}
-.scoreline{display:grid;grid-template-columns:1fr 120px;gap:10px;
-  align-items:center;margin:10px 0 0 29px}
+.learn-title label{margin:0;line-height:1.4}
+.scoreline{display:grid;grid-template-columns:1fr 125px;gap:10px;align-items:center;margin:10px 0 0 29px}
 .scoreline label{margin:0}
 .badge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.badge-item{border:1px solid var(--border);border-radius:14px;
-  padding:13px;text-align:center;background:white}
-.badge-icon{font-size:32px;display:block;margin-bottom:6px}
+.badge-item{border:1px solid var(--border);border-radius:13px;padding:13px;text-align:center;background:white}
+.badge-icon{font-size:30px;display:block;margin-bottom:6px}
 .badge-item strong{display:block;font-size:12px}
-.badge-item small{display:block;margin-top:5px;color:var(--muted)}
-.badge-item.locked{filter:grayscale(1);opacity:.55}
-.notice{background:#fff8df;border:1px solid #f2df9e;padding:12px;
-  border-radius:12px;font-size:13px;line-height:1.5;margin:12px 0}
-.success{background:#e9f8ef;color:#146b46;padding:12px;border-radius:12px}
-.empty{padding:25px;text-align:center;color:var(--muted)}
+.badge-item small{display:block;margin-top:5px;color:var(--muted);line-height:1.4}
+.notice{background:#fff8df;border:1px solid #f2df9e;padding:12px;border-radius:11px;font-size:13px;line-height:1.5;margin:12px 0}
+.empty{text-align:center;color:var(--muted);padding:22px}
 .hidden{display:none!important}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
-@media(max-width:650px){
-  header h1{font-size:22px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
+@media(max-width:700px){
+  header{padding:13px;min-height:84px;gap:9px}
+  .logo{width:45px;height:45px}
+  header h1{font-size:21px}
+  header p{font-size:11px}
+  nav{
+    top:0;bottom:0;width:270px;max-width:85vw;
+    padding:95px 13px 20px;
+    box-shadow:8px 0 25px #00000015;
+    transform:translateX(-110%);
+    transition:transform .22s ease
+  }
+  nav.open{transform:translateX(0)}
+  main{margin-left:0;padding:14px 11px 35px}
   .grid,.formgrid{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .stat{padding:10px}
-  .stat strong{font-size:20px}
+  .stats{gap:7px}
+  .stat{padding:9px}
+  .stat strong{font-size:18px}
   .badge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .scoreline{grid-template-columns:1fr 105px}
-  .student-row{align-items:flex-start}
+  .student-row{align-items:flex-start;flex-direction:column}
+  .scoreline{grid-template-columns:1fr 115px}
+  .sidebar-overlay{
+    position:fixed;inset:0;background:#17132970;z-index:24
+  }
 }
 </style>
 </head>
+
 <body>
 <header>
-  <div class="header-inner">
-    <img class="logo" src="logo-colegio.jpg" alt="Logo del colegio"
-      onerror="this.style.display='none'">
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <div class="brand">
+    <img class="logo" src="logo-colegio.jpg" alt="Logo del colegio" onerror="this.style.display='none'">
     <div>
-      <h1>✋ LSCh A1</h1>
+      <h1>LSCh A1</h1>
       <p>Lengua de Señas Chilena: aprendizaje y seguimiento</p>
-      <p>Cada aprendizaje cuenta. ¡Cada logro se celebra!</p>
     </div>
   </div>
 </header>
 
-<main>
-<nav>
+<div id="sidebarOverlay" class="sidebar-overlay hidden"></div>
+
+<nav id="sidebar">
+  <div class="nav-caption">Menú principal</div>
   <button class="active" data-tab="inicio">🏠 Inicio</button>
   <button data-tab="estudiantes">👥 Estudiantes</button>
-  <button data-tab="etapas">🗺️ Etapas</button>
-  <button data-tab="insignias">🏅 Insignias</button>
+  <button data-tab="etapas">🗺️ Etapas de aprendizaje</button>
+  <button data-tab="insignias">🏅 Insignias y recompensas</button>
   <button data-tab="historial">📋 Historial</button>
-  <button data-tab="respaldo">💾 Respaldo</button>
+  <div class="nav-caption">Herramientas</div>
+  <button data-tab="respaldo">💾 Respaldo y NFC</button>
 </nav>
 
+<main>
 <section id="inicio" class="panel active">
   <div class="card">
-    <h2>¡Bienvenido a LSCh A1!</h2>
-    <p>Una ruta de aprendizaje para conocer y practicar la Lengua de Señas Chilena.</p>
+    <h2>¡Bienvenido a LSCh A1! 👋</h2>
+    <p>Aprendemos Lengua de Señas Chilena paso a paso, reconociendo los avances y celebrando cada logro.</p>
     <div class="stats">
-      <div class="stat"><strong id="totalStudents">0</strong><span>Estudiantes</span></div>
-      <div class="stat"><strong id="totalPoints">0</strong><span>Puntos acumulados</span></div>
-      <div class="stat"><strong id="totalBadges">0</strong><span>Insignias obtenidas</span></div>
+      <div class="stat"><strong id="totalStudents">0</strong>Estudiantes</div>
+      <div class="stat"><strong id="totalPoints">0</strong>Puntos acumulados</div>
+      <div class="stat"><strong id="totalBadges">0</strong>Insignias obtenidas</div>
     </div>
   </div>
   <div class="grid">
     <div class="card">
       <h3>👥 Estudiantes</h3>
-      <p class="muted">Agrega estudiantes y consulta su progreso individual.</p>
+      <p class="muted">Crea perfiles y consulta el progreso individual.</p>
       <button class="primary" onclick="showTab('estudiantes')">Gestionar estudiantes</button>
     </div>
     <div class="card">
       <h3>🗺️ Ruta de aprendizaje</h3>
-      <p class="muted">Avanza por etapas y evalúa aprendizajes de 100 a 1.000 puntos.</p>
-      <button class="primary" onclick="showTab('etapas')">Ver las etapas</button>
+      <p class="muted">Marca aprendizajes demostrados y asigna puntos.</p>
+      <button class="primary" onclick="showTab('etapas')">Ver etapas</button>
     </div>
   </div>
   <div class="card">
-    <h3>📌 Cómo funciona</h3>
-    <p>1. Registra al estudiante.</p>
-    <p>2. Abre su perfil y selecciona una etapa.</p>
-    <p>3. Marca los aprendizajes demostrados y asigna un puntaje.</p>
-    <p>4. El sistema acumula puntos y entrega insignias al cumplir metas.</p>
-    <div class="notice">Los puntos e insignias son una herramienta de motivación. Evalúa el aprendizaje observado, no la velocidad ni la conducta del estudiante.</div>
+    <h3>¿Cómo funciona?</h3>
+    <p>1. Registra a cada estudiante.</p>
+    <p>2. Selecciona su perfil y la etapa de aprendizaje.</p>
+    <p>3. Marca el aprendizaje cuando lo demuestre.</p>
+    <p>4. Asigna entre 100 y 1.000 puntos, de 100 en 100.</p>
+    <p>5. Acumula puntos y desbloquea insignias.</p>
+    <div class="notice">El puntaje es una recompensa educativa. Ajusta los apoyos y las oportunidades de práctica a las necesidades de cada estudiante.</div>
   </div>
 </section>
 
 <section id="estudiantes" class="panel">
   <div class="card">
     <h2>👥 Estudiantes</h2>
-    <p class="muted">Registra los datos necesarios para identificar el perfil dentro de esta aplicación.</p>
     <form id="studentForm">
       <div class="formgrid">
-        <div><label for="studentName">Nombre del estudiante *</label>
-          <input id="studentName" required maxlength="100" placeholder="Nombre y apellido"></div>
-        <div><label for="studentCourse">Curso</label>
-          <input id="studentCourse" maxlength="30" placeholder="6° básico"></div>
+        <div>
+          <label for="studentName">Nombre del estudiante *</label>
+          <input id="studentName" required maxlength="100" placeholder="Nombre y apellido">
+        </div>
+        <div>
+          <label for="studentCourse">Curso</label>
+          <input id="studentCourse" maxlength="30" placeholder="6° básico">
+        </div>
       </div>
-      <div class="actions"><button class="primary">+ Agregar estudiante</button></div>
+      <div class="actions"><button class="primary" type="submit">＋ Agregar estudiante</button></div>
     </form>
   </div>
   <div class="card">
@@ -181,11 +213,10 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 
 <section id="etapas" class="panel">
   <div class="card">
-    <h2>🗺️ Ruta de aprendizaje</h2>
-    <p class="muted">Selecciona un estudiante para registrar sus aprendizajes.</p>
-    <label for="stageStudent">Estudiante</label>
+    <h2>🗺️ Etapas de aprendizaje</h2>
+    <label for="stageStudent">Selecciona un estudiante</label>
     <select id="stageStudent"><option value="">Selecciona un estudiante</option></select>
-    <div id="stageHint" class="notice">Primero agrega un estudiante y selecciónalo aquí.</div>
+    <div id="stageHint" class="notice">Agrega un estudiante para comenzar.</div>
   </div>
   <div id="stageList" class="stage-list"></div>
   <div id="learningBox"></div>
@@ -193,9 +224,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 
 <section id="insignias" class="panel">
   <div class="card">
-    <h2>🏅 Galería de insignias</h2>
-    <p class="muted">Las insignias se desbloquean al alcanzar metas de puntos o completar aprendizajes.</p>
-    <label for="badgeStudent">Ver insignias de</label>
+    <h2>🏅 Insignias y recompensas</h2>
+    <label for="badgeStudent">Selecciona un estudiante</label>
     <select id="badgeStudent"><option value="">Selecciona un estudiante</option></select>
     <div id="badgeSummary"></div>
   </div>
@@ -204,7 +234,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <section id="historial" class="panel">
   <div class="card">
     <h2>📋 Historial de aprendizajes</h2>
-    <label for="historyStudent">Estudiante</label>
+    <label for="historyStudent">Filtrar por estudiante</label>
     <select id="historyStudent"><option value="">Todos los estudiantes</option></select>
     <div id="historyList"></div>
   </div>
@@ -213,21 +243,23 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <section id="respaldo" class="panel">
   <div class="card">
     <h2>💾 Respaldo de datos</h2>
-    <p>Exporta un archivo JSON para guardar una copia de tus estudiantes, aprendizajes, puntajes e insignias.</p>
-    <div class="actions">
-      <button class="primary" onclick="exportData()">⬇️ Descargar respaldo JSON</button>
-    </div>
+    <p>Descarga una copia de los estudiantes, puntajes, aprendizajes e historial.</p>
+    <button class="primary" onclick="exportData()">⬇️ Descargar respaldo JSON</button>
     <label for="importFile">Restaurar desde un archivo JSON</label>
     <input type="file" id="importFile" accept=".json,application/json">
     <div class="actions"><button class="secondary" onclick="importData()">Restaurar respaldo</button></div>
-    <div class="notice">La restauración reemplaza los datos actuales de esta aplicación. Exporta una copia antes de restaurar. Los datos no se sincronizan automáticamente entre celulares o navegadores.</div>
-    <h3>Tarjetas NFC</h3>
-    <p>Genera un enlace individual para cada estudiante. Programa ese enlace en una etiqueta NFC usando una herramienta compatible. En iPhone, al leerla, se puede mostrar una notificación que abre el enlace al tocarla.</p>
-    <p class="muted">El enlace no contiene el nombre del estudiante. No escribas información sensible en la tarjeta. Quien tenga el enlace podría intentar abrir el perfil.</p>
+    <div class="notice">Restaurar reemplaza los datos que están guardados en este navegador. Descarga un respaldo antes de hacerlo.</div>
+  </div>
+  <div class="card">
+    <h2>📲 Tarjetas NFC</h2>
+    <p>Genera un enlace individual desde la ficha de cada estudiante y prográmalo en su tarjeta NFC.</p>
+    <p>En un iPhone compatible, la tarjeta puede abrir una notificación con el enlace. El usuario normalmente debe tocarla para abrir la página.</p>
+    <div class="notice">Esta versión guarda los datos en el navegador. Un enlace NFC no sincroniza perfiles entre teléfonos. Para uso compartido en varios dispositivos se necesita una base de datos protegida.</div>
+    <button class="secondary" onclick="showTab('estudiantes')">Ir a estudiantes y generar enlaces</button>
   </div>
 </section>
 
-<footer>LSCh A1 · Prototipo educativo · Registro local en este navegador</footer>
+<footer>LSCh A1 · Prototipo educativo · Datos guardados localmente en este navegador</footer>
 </main>
 
 <script>
@@ -236,505 +268,392 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 const STORAGE_KEY = "lsch_a1_prototype_v1";
 
 const STAGES = [
- {id:1,title:"Alfabeto dactilológico",
-  description:"Reconocer y reproducir las letras del alfabeto manual.",
-  items:["Reconoce la letra A","Reconoce la letra B","Reconoce la letra C",
-   "Reconoce la letra D","Reconoce la letra E","Reconoce la letra F",
-   "Reconoce la letra G","Reconoce la letra H","Reconoce la letra I",
-   "Reconoce la letra J","Reconoce la letra K","Reconoce la letra L",
-   "Reconoce la letra M","Reconoce la letra N","Reconoce la letra Ñ",
-   "Reconoce la letra O","Reconoce la letra P","Reconoce la letra Q",
-   "Reconoce la letra R","Reconoce la letra S","Reconoce la letra T",
-   "Reconoce la letra U","Reconoce la letra V","Reconoce la letra W",
-   "Reconoce la letra X","Reconoce la letra Y","Reconoce la letra Z",
-   "Relaciona la letra con su configuración manual",
-   "Reproduce las letras trabajadas",
-   "Deletrea su nombre con el alfabeto dactilológico"]},
- {id:2,title:"Saludos y cortesía",
-  description:"Expresiones para iniciar y cerrar una interacción.",
-  items:["Saluda","Se despide","Expresa gracias","Pregunta cómo estás",
-   "Expresa buenos días","Expresa buenas tardes","Expresa buenas noches"]},
- {id:3,title:"Presentación personal",
-  description:"Compartir el nombre y el apellido.",
-  items:["Expresa su nombre","Expresa su apellido","Deletrea su nombre",
-   "Deletrea su apellido","Pregunta el nombre de otra persona"]},
- {id:4,title:"¿Dónde vives?",
-  description:"Hablar del lugar donde vive.",
-  items:["Pregunta dónde vive otra persona","Expresa dónde vive",
-   "Reconoce el nombre de su comuna","Reconoce el nombre de su ciudad"]},
- {id:5,title:"Mi familia y personas importantes",
-  description:"Vocabulario de familia y personas cercanas.",
-  items:["Reconoce señas de integrantes de la familia",
-   "Expresa quiénes forman parte de su familia",
-   "Presenta a una persona importante para él o ella"]},
- {id:6,title:"Mi colegio y sala de clases",
-  description:"Vocabulario funcional del contexto escolar.",
-  items:["Reconoce la seña de colegio","Reconoce la seña de profesor o profesora",
-   "Reconoce la seña de compañero o compañera","Identifica objetos escolares",
-   "Expresa una necesidad dentro de la sala","Pide ayuda"]},
- {id:7,title:"Emociones y estados de ánimo",
-  description:"Expresar y reconocer emociones.",
-  items:["Reconoce alegría","Reconoce tristeza","Reconoce enojo",
-   "Reconoce cansancio","Expresa cómo se siente",
-   "Pregunta cómo se siente otra persona"]},
- {id:8,title:"Números, edad y fechas",
-  description:"Números y datos cotidianos.",
-  items:["Reconoce números trabajados","Expresa su edad",
-   "Pregunta la edad de otra persona","Reconoce los días de la semana",
-   "Reconoce vocabulario básico de fechas"]},
- {id:9,title:"Alimentos y necesidades cotidianas",
-  description:"Comunicar necesidades frecuentes.",
-  items:["Reconoce señas de alimentos","Expresa que tiene hambre",
-   "Expresa que tiene sed","Pide agua","Expresa una necesidad cotidiana"]},
- {id:10,title:"Conversaciones cotidianas",
-  description:"Combinar lo aprendido en diálogos breves.",
-  items:["Inicia una conversación con un saludo",
-   "Se presenta con su nombre","Pregunta el nombre de otra persona",
-   "Responde preguntas personales trabajadas",
-   "Combina varias señas en un diálogo",
-   "Cierra una conversación y se despide"]}
+{id:1,title:"Alfabeto dactilológico",description:"Reconocer y reproducir las letras del alfabeto manual.",items:[
+"Reconoce la letra A","Reconoce la letra B","Reconoce la letra C","Reconoce la letra D","Reconoce la letra E","Reconoce la letra F","Reconoce la letra G","Reconoce la letra H","Reconoce la letra I","Reconoce la letra J","Reconoce la letra K","Reconoce la letra L","Reconoce la letra M","Reconoce la letra N","Reconoce la letra Ñ","Reconoce la letra O","Reconoce la letra P","Reconoce la letra Q","Reconoce la letra R","Reconoce la letra S","Reconoce la letra T","Reconoce la letra U","Reconoce la letra V","Reconoce la letra W","Reconoce la letra X","Reconoce la letra Y","Reconoce la letra Z","Relaciona las letras con sus configuraciones manuales","Reproduce las letras trabajadas","Deletrea su nombre con el alfabeto dactilológico"]},
+{id:2,title:"Saludos y cortesía",description:"Expresiones para iniciar y cerrar una interacción.",items:["Saluda","Se despide","Expresa gracias","Pregunta cómo estás","Expresa buenos días","Expresa buenas tardes","Expresa buenas noches"]},
+{id:3,title:"Presentación personal",description:"Compartir el nombre y el apellido.",items:["Expresa su nombre","Expresa su apellido","Deletrea su nombre","Deletrea su apellido","Pregunta el nombre de otra persona"]},
+{id:4,title:"¿Dónde vives?",description:"Hablar del lugar donde vive.",items:["Pregunta dónde vive otra persona","Expresa dónde vive","Reconoce el nombre de su comuna","Reconoce el nombre de su ciudad"]},
+{id:5,title:"Mi familia y personas importantes",description:"Vocabulario de familia y personas cercanas.",items:["Reconoce señas de integrantes de la familia","Expresa quiénes forman parte de su familia","Presenta a una persona importante para él o ella"]},
+{id:6,title:"Mi colegio y sala de clases",description:"Vocabulario funcional del contexto escolar.",items:["Reconoce la seña de colegio","Reconoce la seña de profesor o profesora","Reconoce la seña de compañero o compañera","Identifica objetos escolares","Expresa una necesidad dentro de la sala","Pide ayuda"]},
+{id:7,title:"Emociones y estados de ánimo",description:"Expresar y reconocer emociones.",items:["Reconoce alegría","Reconoce tristeza","Reconoce enojo","Reconoce cansancio","Expresa cómo se siente","Pregunta cómo se siente otra persona"]},
+{id:8,title:"Números, edad y fechas",description:"Números y datos cotidianos.",items:["Reconoce números trabajados","Expresa su edad","Pregunta la edad de otra persona","Reconoce los días de la semana","Reconoce vocabulario básico de fechas"]},
+{id:9,title:"Alimentos y necesidades cotidianas",description:"Comunicar necesidades frecuentes.",items:["Reconoce señas de alimentos","Expresa que tiene hambre","Expresa que tiene sed","Pide agua","Expresa una necesidad cotidiana"]},
+{id:10,title:"Conversaciones cotidianas",description:"Combinar lo aprendido en diálogos breves.",items:["Inicia una conversación con un saludo","Se presenta con su nombre","Pregunta el nombre de otra persona","Responde preguntas personales trabajadas","Combina varias señas en un diálogo","Cierra una conversación y se despide"]}
 ];
 
 const BADGES = [
- {id:"first",name:"Mi primer aprendizaje",icon:"🌟",
-  description:"Completa tu primer aprendizaje.",type:"items",goal:1},
- {id:"alphabet",name:"Explorador del alfabeto",icon:"🔤",
-  description:"Completa todos los aprendizajes de la etapa 1.",type:"stage",goal:1},
- {id:"greetings",name:"Experto en saludos",icon:"👋",
-  description:"Completa todos los aprendizajes de la etapa 2.",type:"stage",goal:2},
- {id:"introduce",name:"¡Esta persona soy yo!",icon:"🙋",
-  description:"Completa todos los aprendizajes de la etapa 3.",type:"stage",goal:3},
- {id:"points500",name:"Primera meta",icon:"⭐",
-  description:"Acumula 500 puntos.",type:"points",goal:500},
- {id:"points1000",name:"Explorador LSCh",icon:"🏅",
-  description:"Acumula 1.000 puntos.",type:"points",goal:1000},
- {id:"points2500",name:"Aprendiz constante",icon:"🚀",
-  description:"Acumula 2.500 puntos.",type:"points",goal:2500},
- {id:"points5000",name:"Maestro de las señas",icon:"🏆",
-  description:"Acumula 5.000 puntos.",type:"points",goal:5000},
- {id:"stage5",name:"Mi mundo cercano",icon:"🏡",
-  description:"Completa todos los aprendizajes de la etapa 5.",type:"stage",goal:5},
- {id:"stage10",name:"Comunicador LSCh A1",icon:"🎓",
-  description:"Completa todos los aprendizajes de la etapa 10.",type:"stage",goal:10}
+{id:"first",name:"Mi primer aprendizaje",icon:"🌟",description:"Completa tu primer aprendizaje.",type:"items",goal:1},
+{id:"alphabet",name:"Explorador del alfabeto",icon:"🔤",description:"Completa la etapa 1.",type:"stage",goal:1},
+{id:"greetings",name:"Experto en saludos",icon:"👋",description:"Completa la etapa 2.",type:"stage",goal:2},
+{id:"introduce",name:"¡Esta persona soy yo!",icon:"🙋",description:"Completa la etapa 3.",type:"stage",goal:3},
+{id:"points500",name:"Primera meta",icon:"⭐",description:"Acumula 500 puntos.",type:"points",goal:500},
+{id:"points1000",name:"Explorador LSCh",icon:"🏅",description:"Acumula 1.000 puntos.",type:"points",goal:1000},
+{id:"points2500",name:"Aprendiz constante",icon:"🚀",description:"Acumula 2.500 puntos.",type:"points",goal:2500},
+{id:"points5000",name:"Maestro de las señas",icon:"🏆",description:"Acumula 5.000 puntos.",type:"points",goal:5000},
+{id:"stage5",name:"Mi mundo cercano",icon:"🏡",description:"Completa la etapa 5.",type:"stage",goal:5},
+{id:"stage10",name:"Comunicador LSCh A1",icon:"🎓",description:"Completa la etapa 10.",type:"stage",goal:10}
 ];
 
-let data = loadData();
-let selectedStudentId = "";
-let selectedStageId = 1;
-
-function emptyData(){
- return {version:1,students:[],records:[],createdAt:new Date().toISOString()};
-}
+function emptyData(){return {version:1,students:[],records:[],createdAt:new Date().toISOString()};}
 function loadData(){
- try{
-  const raw=localStorage.getItem(STORAGE_KEY);
-  if(!raw) return emptyData();
-  const parsed=JSON.parse(raw);
-  if(!parsed || !Array.isArray(parsed.students) || !Array.isArray(parsed.records))
-   return emptyData();
-  return parsed;
- }catch(e){return emptyData();}
+  try{
+    const d=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(d&&Array.isArray(d.students)&&Array.isArray(d.records))return d;
+  }catch(e){}
+  return emptyData();
 }
+let data=loadData();
+let selectedStudentId="";
+let selectedStageId=1;
+
 function saveData(){
- localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
- renderAll();
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}
+  catch(e){console.error("No se pudieron guardar los datos",e);}
+  renderAll();
 }
-function uid(){
- return "s"+Date.now().toString(36)+Math.random().toString(36).slice(2,9);
-}
-function esc(value){
- return String(value ?? "").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
-}
+function uid(){return "s"+Date.now().toString(36)+Math.random().toString(36).slice(2,9);}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 function studentById(id){return data.students.find(s=>s.id===id);}
 function studentRecords(id){return data.records.filter(r=>r.studentId===id);}
-function recordFor(id,stageId,itemIndex){
- return data.records.find(r=>r.studentId===id&&r.stageId===stageId&&r.itemIndex===itemIndex);
-}
-function scoreTotal(id){
- return studentRecords(id).reduce((sum,r)=>sum+(Number(r.score)||0),0);
-}
-function completedCount(id){
- return studentRecords(id).length;
-}
+function scoreTotal(id){return studentRecords(id).reduce((sum,r)=>sum+(Number(r.score)||0),0);}
+function completedCount(id){return studentRecords(id).length;}
+function recordFor(id,stageId,itemIndex){return data.records.find(r=>r.studentId===id&&r.stageId===stageId&&r.itemIndex===itemIndex);}
 function stageCompleted(id,stageId){
- const stage=STAGES.find(s=>s.id===stageId);
- return !!stage && stage.items.every((item,i)=>!!recordFor(id,stageId,i));
+  const st=STAGES.find(s=>s.id===stageId);
+  return !!st&&st.items.every((x,i)=>!!recordFor(id,stageId,i));
 }
 function stageProgress(id,stageId){
- const stage=STAGES.find(s=>s.id===stageId);
- if(!stage)return 0;
- return Math.round(stage.items.filter((x,i)=>recordFor(id,stageId,i)).length/stage.items.length*100);
+  const st=STAGES.find(s=>s.id===stageId);
+  if(!st)return 0;
+  return Math.round(st.items.filter((x,i)=>recordFor(id,stageId,i)).length/st.items.length*100);
 }
+function stageUnlocked(id,stageId){return stageId===1||stageCompleted(id,stageId-1);}
 function earnedBadges(id){
- const points=scoreTotal(id), count=completedCount(id);
- return BADGES.filter(b=>{
-  if(b.type==="points")return points>=b.goal;
-  if(b.type==="items")return count>=b.goal;
-  if(b.type==="stage")return stageCompleted(id,b.goal);
-  return false;
- });
+  return BADGES.filter(b=>{
+    if(b.type==="points")return scoreTotal(id)>=b.goal;
+    if(b.type==="items")return completedCount(id)>=b.goal;
+    if(b.type==="stage")return stageCompleted(id,b.goal);
+    return false;
+  });
 }
-function stageUnlocked(id,stageId){
- if(stageId===1)return true;
- return stageCompleted(id,stageId-1);
+
+const sidebar=document.getElementById("sidebar");
+const menuToggle=document.getElementById("menuToggle");
+const overlay=document.getElementById("sidebarOverlay");
+
+function closeMenu(){
+  sidebar.classList.remove("open");
+  overlay.classList.add("hidden");
+  menuToggle.setAttribute("aria-expanded","false");
 }
+menuToggle.addEventListener("click",()=>{
+  const open=sidebar.classList.toggle("open");
+  overlay.classList.toggle("hidden",!open);
+  menuToggle.setAttribute("aria-expanded",String(open));
+});
+overlay.addEventListener("click",closeMenu);
+
 function showTab(id){
- document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
- document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
- if(id==="etapas")renderStages();
- if(id==="insignias")renderBadges();
- if(id==="historial")renderHistory();
- window.scrollTo({top:0,behavior:"smooth"});
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
+  document.querySelectorAll("nav button[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+  closeMenu();
+  if(id==="etapas")renderStages();
+  if(id==="insignias")renderBadges();
+  if(id==="historial")renderHistory();
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+document.querySelectorAll("nav button[data-tab]").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
 
 document.getElementById("studentForm").addEventListener("submit",e=>{
- e.preventDefault();
- const name=document.getElementById("studentName").value.trim();
- const course=document.getElementById("studentCourse").value.trim()||"Sin curso";
- if(!name)return;
- const student={id:uid(),name,course,createdAt:new Date().toISOString()};
- data.students.push(student);
- selectedStudentId=student.id;
- document.getElementById("studentName").value="";
- document.getElementById("studentCourse").value="";
- saveData();
- showTab("etapas");
- document.getElementById("stageStudent").value=student.id;
- renderStages();
+  e.preventDefault();
+  const name=document.getElementById("studentName").value.trim();
+  const course=document.getElementById("studentCourse").value.trim()||"Sin curso";
+  if(!name)return;
+  const student={id:uid(),name,course,createdAt:new Date().toISOString()};
+  data.students.push(student);
+  selectedStudentId=student.id;
+  document.getElementById("studentName").value="";
+  document.getElementById("studentCourse").value="";
+  saveData();
+  showTab("etapas");
+  document.getElementById("stageStudent").value=student.id;
+  renderStages();
 });
-
-document.getElementById("stageStudent").addEventListener("change",e=>{
- selectedStudentId=e.target.value;
- renderStages();
-});
+document.getElementById("stageStudent").addEventListener("change",e=>{selectedStudentId=e.target.value;renderStages();});
 document.getElementById("badgeStudent").addEventListener("change",renderBadges);
 document.getElementById("historyStudent").addEventListener("change",renderHistory);
 
-function renderAll(){
- renderStats();
- renderStudents();
- renderSelectors();
- renderStages();
- renderBadges();
- renderHistory();
-}
+function renderAll(){renderStats();renderStudents();renderSelectors();renderStages();renderBadges();renderHistory();}
 function renderStats(){
- document.getElementById("totalStudents").textContent=data.students.length;
- document.getElementById("totalPoints").textContent=data.students.reduce((s,x)=>s+scoreTotal(x.id),0).toLocaleString("es-CL");
- document.getElementById("totalBadges").textContent=data.students.reduce((s,x)=>s+earnedBadges(x.id).length,0);
+  document.getElementById("totalStudents").textContent=data.students.length;
+  document.getElementById("totalPoints").textContent=data.students.reduce((sum,s)=>sum+scoreTotal(s.id),0).toLocaleString("es-CL");
+  document.getElementById("totalBadges").textContent=data.students.reduce((sum,s)=>sum+earnedBadges(s.id).length,0);
 }
 function renderStudents(){
- const box=document.getElementById("studentList");
- if(!data.students.length){
-  box.innerHTML='<div class="empty">Aún no hay estudiantes. Agrega el primero arriba.</div>';
-  return;
- }
- box.innerHTML=data.students.map(s=>`
-  <div class="student-row">
-   <div><strong>${esc(s.name)}</strong><span class="muted">${esc(s.course)} · ${scoreTotal(s.id).toLocaleString("es-CL")} puntos · ${completedCount(s.id)} aprendizajes</span></div>
-   <div class="actions" style="margin:0">
-    <button class="secondary" onclick="openProfile('${s.id}')">Ver perfil</button>
-    <button class="secondary" onclick="showNfc('${s.id}')">Tarjeta NFC</button>
-    <button class="danger" onclick="deleteStudent('${s.id}')">Eliminar</button>
-   </div>
-  </div>`).join("");
+  const box=document.getElementById("studentList");
+  if(!data.students.length){box.innerHTML='<div class="empty">Aún no hay estudiantes registrados.</div>';return;}
+  box.innerHTML=data.students.map(s=>`
+    <div class="student-row">
+      <div><strong>${esc(s.name)}</strong><span class="muted">${esc(s.course)} · ${scoreTotal(s.id).toLocaleString("es-CL")} puntos · ${completedCount(s.id)} aprendizajes</span></div>
+      <div class="actions" style="margin:0">
+        <button class="secondary" onclick="openProfile('${s.id}')">Perfil</button>
+        <button class="secondary" onclick="showNfc('${s.id}')">Tarjeta NFC</button>
+        <button class="danger" onclick="deleteStudent('${s.id}')">Eliminar</button>
+      </div>
+    </div>`).join("");
 }
 function renderSelectors(){
- const opts=data.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} — ${esc(s.course)}</option>`).join("");
- const ss=document.getElementById("stageStudent");
- const bs=document.getElementById("badgeStudent");
- const hs=document.getElementById("historyStudent");
- const oldS=ss.value||selectedStudentId, oldB=bs.value, oldH=hs.value;
- ss.innerHTML='<option value="">Selecciona un estudiante</option>'+opts;
- bs.innerHTML='<option value="">Selecciona un estudiante</option>'+opts;
- hs.innerHTML='<option value="">Todos los estudiantes</option>'+opts;
- if(data.students.some(s=>s.id===oldS))ss.value=oldS;
- if(data.students.some(s=>s.id===oldB))bs.value=oldB;
- if(data.students.some(s=>s.id===oldH))hs.value=oldH;
- selectedStudentId=ss.value;
+  const options=data.students.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} — ${esc(s.course)}</option>`).join("");
+  const old={
+    stage:document.getElementById("stageStudent").value||selectedStudentId,
+    badge:document.getElementById("badgeStudent").value,
+    history:document.getElementById("historyStudent").value
+  };
+  document.getElementById("stageStudent").innerHTML='<option value="">Selecciona un estudiante</option>'+options;
+  document.getElementById("badgeStudent").innerHTML='<option value="">Selecciona un estudiante</option>'+options;
+  document.getElementById("historyStudent").innerHTML='<option value="">Todos los estudiantes</option>'+options;
+  if(data.students.some(s=>s.id===old.stage))document.getElementById("stageStudent").value=old.stage;
+  if(data.students.some(s=>s.id===old.badge))document.getElementById("badgeStudent").value=old.badge;
+  if(data.students.some(s=>s.id===old.history))document.getElementById("historyStudent").value=old.history;
+  selectedStudentId=document.getElementById("stageStudent").value||selectedStudentId;
 }
 function openProfile(id){
- selectedStudentId=id;
- showTab("estudiantes");
- renderStudents();
- const s=studentById(id);
- if(!s)return;
- const url=profileUrl(s.id);
- const box=document.getElementById("profileBox");
- box.classList.remove("hidden");
- box.innerHTML=`
-  <div class="card">
-   <h2>👤 Perfil de ${esc(s.name)}</h2>
-   <p class="muted">${esc(s.course)}</p>
-   <div class="stats">
-    <div class="stat"><strong>${scoreTotal(id).toLocaleString("es-CL")}</strong><span>Puntos</span></div>
-    <div class="stat"><strong>${completedCount(id)}</strong><span>Aprendizajes</span></div>
-    <div class="stat"><strong>${earnedBadges(id).length}</strong><span>Insignias</span></div>
-   </div>
-   <h3 style="margin-top:18px">Progreso por etapa</h3>
-   ${STAGES.map(st=>`<p><strong>${st.id}. ${esc(st.title)}</strong> — ${stageProgress(id,st.id)}%</p><div class="progress"><div style="width:${stageProgress(id,st.id)}%"></div></div>`).join("")}
-   <div class="actions">
-    <button class="primary" onclick="goToStudentStage('${id}')">Registrar aprendizajes</button>
-    <button class="secondary" onclick="showNfc('${id}')">Ver enlace NFC</button>
-    <button class="secondary" onclick="copyText('${url}')">Copiar enlace del perfil</button>
-   </div>
-   <div id="nfcBox"></div>
-  </div>`;
- box.scrollIntoView({behavior:"smooth",block:"start"});
+  const s=studentById(id);if(!s)return;
+  selectedStudentId=id;
+  showTab("estudiantes");
+  const box=document.getElementById("profileBox");
+  box.classList.remove("hidden");
+  box.innerHTML=`
+    <div class="card">
+      <h2>👤 ${esc(s.name)}</h2><p class="muted">${esc(s.course)}</p>
+      <div class="stats">
+        <div class="stat"><strong>${scoreTotal(id).toLocaleString("es-CL")}</strong>Puntos</div>
+        <div class="stat"><strong>${completedCount(id)}</strong>Aprendizajes</div>
+        <div class="stat"><strong>${earnedBadges(id).length}</strong>Insignias</div>
+      </div>
+      <h3 style="margin-top:17px">Progreso por etapa</h3>
+      ${STAGES.map(st=>`<p><strong>${st.id}. ${esc(st.title)}</strong> — ${stageProgress(id,st.id)}%</p><div class="progress"><div style="width:${stageProgress(id,st.id)}%"></div></div>`).join("")}
+      <div class="actions">
+        <button class="primary" onclick="goToStudentStage('${id}')">Registrar aprendizajes</button>
+        <button class="secondary" onclick="showNfc('${id}')">Tarjeta NFC</button>
+        <button class="secondary" onclick="copyProfileLink('${id}')">Copiar enlace</button>
+      </div>
+    </div>`;
+  box.scrollIntoView({behavior:"smooth",block:"start"});
 }
 function goToStudentStage(id){
- selectedStudentId=id;
- showTab("etapas");
- document.getElementById("stageStudent").value=id;
- renderStages();
+  selectedStudentId=id;showTab("etapas");
+  document.getElementById("stageStudent").value=id;
+  renderStages();
 }
 function deleteStudent(id){
- const s=studentById(id);
- if(!s)return;
- if(!confirm(`¿Eliminar a ${s.name} y todos sus registros? Exporta un respaldo antes de continuar.`))return;
- data.students=data.students.filter(x=>x.id!==id);
- data.records=data.records.filter(r=>r.studentId!==id);
- if(selectedStudentId===id)selectedStudentId="";
- document.getElementById("profileBox").classList.add("hidden");
- saveData();
+  const s=studentById(id);if(!s)return;
+  if(!confirm("¿Eliminar a "+s.name+" y todos sus registros? Descarga un respaldo antes."))return;
+  data.students=data.students.filter(x=>x.id!==id);
+  data.records=data.records.filter(r=>r.studentId!==id);
+  if(selectedStudentId===id)selectedStudentId="";
+  document.getElementById("profileBox").classList.add("hidden");
+  saveData();
 }
 function renderStages(){
- const id=document.getElementById("stageStudent").value||selectedStudentId;
- const student=studentById(id);
- const hint=document.getElementById("stageHint");
- const stageList=document.getElementById("stageList");
- const learningBox=document.getElementById("learningBox");
- if(!student){
-  hint.classList.remove("hidden");
-  hint.textContent="Primero agrega un estudiante y selecciónalo aquí.";
-  stageList.innerHTML="";
-  learningBox.innerHTML="";
-  return;
- }
- selectedStudentId=id;
- hint.classList.add("hidden");
- stageList.innerHTML=STAGES.map(st=>{
-  const unlocked=stageUnlocked(id,st.id);
-  const pct=stageProgress(id,st.id);
-  return `<div class="stage-card ${unlocked?"":"locked"}">
-   <div class="stage-top"><span class="tag">ETAPA ${st.id}</span><span class="muted">${pct}%</span></div>
-   <h3>${unlocked?"🔓":"🔒"} ${esc(st.title)}</h3>
-   <p>${esc(st.description)}</p>
-   <div class="progress"><div style="width:${pct}%"></div></div>
-   <div class="actions"><button class="${unlocked?"primary":"secondary"}" ${unlocked?"":"disabled"} onclick="openStage(${st.id})">${unlocked?"Abrir etapa":"Completa la etapa anterior"}</button></div>
-  </div>`;
- }).join("");
- if(!STAGES.some(s=>s.id===selectedStageId&&stageUnlocked(id,s.id)))selectedStageId=1;
- renderLearningBox();
+  const id=document.getElementById("stageStudent").value||selectedStudentId;
+  const s=studentById(id);
+  const hint=document.getElementById("stageHint"),list=document.getElementById("stageList");
+  if(!s){
+    hint.classList.remove("hidden");hint.textContent="Agrega un estudiante y selecciónalo para comenzar.";
+    list.innerHTML="";document.getElementById("learningBox").innerHTML="";return;
+  }
+  selectedStudentId=id;hint.classList.add("hidden");
+  list.innerHTML=STAGES.map(st=>{
+    const unlocked=stageUnlocked(id,st.id),pct=stageProgress(id,st.id);
+    return `<div class="stage-card ${unlocked?"":"locked"}">
+      <div class="stage-top"><span class="tag">ETAPA ${st.id}</span><span class="muted">${pct}%</span></div>
+      <h3>${unlocked?"🔓":"🔒"} ${esc(st.title)}</h3><p>${esc(st.description)}</p>
+      <div class="progress"><div style="width:${pct}%"></div></div>
+      <div class="actions"><button class="${unlocked?"primary":"secondary"}" ${unlocked?"":"disabled"} onclick="openStage(${st.id})">${unlocked?"Abrir etapa":"Completa la etapa anterior"}</button></div>
+    </div>`;
+  }).join("");
+  if(!stageUnlocked(id,selectedStageId))selectedStageId=1;
+  renderLearningBox();
 }
 function openStage(stageId){
- const id=document.getElementById("stageStudent").value||selectedStudentId;
- if(!id)return;
- if(!stageUnlocked(id,stageId)){
-  alert("Primero completa todos los aprendizajes de la etapa anterior.");
-  return;
- }
- selectedStudentId=id;
- selectedStageId=stageId;
- renderLearningBox();
- document.getElementById("learningBox").scrollIntoView({behavior:"smooth",block:"start"});
+  const id=document.getElementById("stageStudent").value||selectedStudentId;
+  if(!id||!stageUnlocked(id,stageId))return;
+  selectedStudentId=id;selectedStageId=stageId;renderLearningBox();
+  document.getElementById("learningBox").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function renderLearningBox(){
- const box=document.getElementById("learningBox");
- const s=studentById(selectedStudentId);
- const st=STAGES.find(x=>x.id===selectedStageId);
- if(!s||!st){box.innerHTML="";return;}
- if(!stageUnlocked(s.id,st.id)){
-  box.innerHTML='<div class="card">Esta etapa aún está bloqueada.</div>';return;
- }
- const records=studentRecords(s.id);
- box.innerHTML=`
-  <div class="card">
-   <span class="tag">ETAPA ${st.id}</span>
-   <h2 style="margin-top:10px">${esc(st.title)}</h2>
-   <p>${esc(st.description)}</p>
-   <p><strong>Estudiante:</strong> ${esc(s.name)} · <strong>Puntaje acumulado:</strong> ${scoreTotal(s.id).toLocaleString("es-CL")}</p>
-   <div class="notice">Marca una casilla cuando el estudiante demuestre el aprendizaje. Selecciona un puntaje de 100 a 1.000, en intervalos de 100. Cada aprendizaje se registra una sola vez y suma puntos al total.</div>
-   <div id="learningRows">
-    ${st.items.map((item,i)=>{
-     const r=recordFor(s.id,st.id,i);
-     return `<div class="learn-row">
-      <div class="learn-title">
-       <input type="checkbox" id="check_${i}" ${r?"checked":""}
-        onchange="toggleLearning(${st.id},${i},this.checked)">
-       <label for="check_${i}" style="margin:0;line-height:1.4">${esc(item)}</label>
+  const box=document.getElementById("learningBox");
+  const s=studentById(selectedStudentId),st=STAGES.find(x=>x.id===selectedStageId);
+  if(!s||!st){box.innerHTML="";return;}
+  if(!stageUnlocked(s.id,st.id)){box.innerHTML='<div class="card">Completa la etapa anterior para continuar.</div>';return;}
+  box.innerHTML=`
+    <div class="card">
+      <span class="tag">ETAPA ${st.id}</span><h2 style="margin-top:10px">${esc(st.title)}</h2>
+      <p>${esc(st.description)}</p>
+      <p><strong>Estudiante:</strong> ${esc(s.name)} · <strong>Puntaje acumulado:</strong> ${scoreTotal(s.id).toLocaleString("es-CL")}</p>
+      <div class="notice">Marca cada aprendizaje cuando lo demuestre el estudiante. Selecciona un puntaje de 100 a 1.000, de 100 en 100. Cada aprendizaje se registra una sola vez.</div>
+      ${st.items.map((item,i)=>{
+        const r=recordFor(s.id,st.id,i);
+        return `<div class="learn-row">
+          <div class="learn-title">
+            <input type="checkbox" id="check_${i}" ${r?"checked":""} onchange="toggleLearning(${st.id},${i},this.checked)">
+            <label for="check_${i}">${esc(item)}</label>
+          </div>
+          <div class="scoreline">
+            <label for="score_${i}">Puntaje</label>
+            <select id="score_${i}" ${r?"disabled":""}>
+              ${[100,200,300,400,500,600,700,800,900,1000].map(n=>`<option value="${n}" ${(r?Number(r.score):500)===n?"selected":""}>${n} puntos</option>`).join("")}
+            </select>
+          </div>
+          ${r?`<p class="muted" style="margin:7px 0 0 29px">Registrado: ${new Date(r.date).toLocaleDateString("es-CL")} · ${r.score} puntos</p>`:""}
+        </div>`;
+      }).join("")}
+      <div class="actions">
+        <button class="secondary" onclick="renderStages()">Actualizar progreso</button>
+        <button class="primary" onclick="openBadgesFor('${s.id}')">Ver insignias</button>
       </div>
-      <div class="scoreline">
-       <label for="score_${i}">Puntaje</label>
-       <select id="score_${i}" ${r?"disabled":""}>
-        ${[100,200,300,400,500,600,700,800,900,1000].map(n=>`<option value="${n}" ${(r?r.score:500)===n?"selected":""}>${n} puntos</option>`).join("")}
-       </select>
-      </div>
-      ${r?`<p class="muted" style="margin:7px 0 0 29px">Registrado: ${new Date(r.date).toLocaleDateString("es-CL")} · ${r.score} puntos</p>`:""}
-     </div>`;
-    }).join("")}
-   </div>
-   <div class="actions">
-    <button class="secondary" onclick="renderStages()">Actualizar progreso</button>
-    <button class="primary" onclick="showTab('insignias');document.getElementById('badgeStudent').value='${s.id}';renderBadges()">Ver recompensas</button>
-   </div>
-  </div>`;
+    </div>`;
 }
 function toggleLearning(stageId,itemIndex,checked){
- const s=studentById(selectedStudentId);
- if(!s)return;
- const existing=recordFor(s.id,stageId,itemIndex);
- if(checked){
-  if(existing)return;
-  const scoreEl=document.getElementById("score_"+itemIndex);
-  const score=Number(scoreEl.value);
-  if(![100,200,300,400,500,600,700,800,900,1000].includes(score)){
-   alert("Selecciona un puntaje válido.");return;
+  const s=studentById(selectedStudentId);if(!s)return;
+  const existing=recordFor(s.id,stageId,itemIndex);
+  if(checked){
+    if(existing)return;
+    const score=Number(document.getElementById("score_"+itemIndex).value);
+    if(![100,200,300,400,500,600,700,800,900,1000].includes(score))return;
+    const st=STAGES.find(x=>x.id===stageId);
+    data.records.push({id:uid(),studentId:s.id,stageId,itemIndex,item:st.items[itemIndex],score,date:new Date().toISOString()});
+    saveData();
+    renderLearningBox();
+  }else{
+    if(!existing)return;
+    if(!confirm("¿Quitar este aprendizaje y descontar sus puntos?")){renderLearningBox();return;}
+    data.records=data.records.filter(r=>r.id!==existing.id);
+    saveData();renderLearningBox();
   }
-  const st=STAGES.find(x=>x.id===stageId);
-  const record={
-   id:uid(),studentId:s.id,stageId,itemIndex,
-   item:st.items[itemIndex],score,
-   date:new Date().toISOString()
-  };
-  data.records.push(record);
-  saveData();
-  renderLearningBox();
-  const newBadges=earnedBadges(s.id);
-  if(newBadges.length)alert("¡Buen trabajo! Revisa las insignias que has desbloqueado.");
- }else{
-  if(!existing)return;
-  if(!confirm("¿Quitar este aprendizaje del historial y descontar sus puntos?")) {
-   renderLearningBox();return;
-  }
-  data.records=data.records.filter(r=>r.id!==existing.id);
-  saveData();
-  renderLearningBox();
- }
+}
+function openBadgesFor(id){
+  showTab("insignias");
+  document.getElementById("badgeStudent").value=id;
+  renderBadges();
 }
 function renderBadges(){
- const id=document.getElementById("badgeStudent").value;
- const box=document.getElementById("badgeSummary");
- if(!id){
-  box.innerHTML='<div class="empty">Selecciona un estudiante para consultar sus insignias.</div>';return;
- }
- const s=studentById(id);
- if(!s)return;
- const earned=earnedBadges(id);
- box.innerHTML=`
-  <div class="stats" style="margin:14px 0">
-   <div class="stat"><strong>${scoreTotal(id).toLocaleString("es-CL")}</strong><span>Puntos</span></div>
-   <div class="stat"><strong>${earned.length}</strong><span>Insignias</span></div>
-   <div class="stat"><strong>${STAGES.filter(st=>stageCompleted(id,st.id)).length}/10</strong><span>Etapas completas</span></div>
-  </div>
-  <div class="badge-grid">${BADGES.map(b=>{
-   const has=earned.some(x=>x.id===b.id);
-   let progress=0,goalLabel="";
-   if(b.type==="points"){progress=Math.min(100,scoreTotal(id)/b.goal*100);goalLabel=`${Math.min(scoreTotal(id),b.goal)} / ${b.goal} puntos`;}
-   if(b.type==="items"){progress=Math.min(100,completedCount(id)/b.goal*100);goalLabel=`${completedCount(id)} / ${b.goal} aprendizajes`;}
-   if(b.type==="stage"){progress=stageProgress(id,b.goal);goalLabel=`Etapa ${b.goal}: ${progress}%`;}
-   return `<div class="badge-item ${has?"":"locked"}">
-    <span class="badge-icon">${has?b.icon:"🔒"}</span>
-    <strong>${esc(b.name)}</strong><small>${esc(b.description)}</small>
-    <div class="progress" style="margin-top:10px"><div style="width:${progress}%"></div></div>
-    <small>${has?"¡Desbloqueada!":esc(goalLabel)}</small>
-   </div>`;
-  }).join("")}</div>`;
+  const id=document.getElementById("badgeStudent").value;
+  const box=document.getElementById("badgeSummary");
+  if(!id){box.innerHTML='<div class="empty">Selecciona un estudiante.</div>';return;}
+  const earned=earnedBadges(id);
+  box.innerHTML=`
+    <div class="stats" style="margin:14px 0">
+      <div class="stat"><strong>${scoreTotal(id).toLocaleString("es-CL")}</strong>Puntos</div>
+      <div class="stat"><strong>${earned.length}</strong>Insignias</div>
+      <div class="stat"><strong>${STAGES.filter(st=>stageCompleted(id,st.id)).length}/10</strong>Etapas completas</div>
+    </div>
+    <div class="badge-grid">${BADGES.map(b=>{
+      const has=earned.some(x=>x.id===b.id);
+      let progress=0,label="";
+      if(b.type==="points"){progress=Math.min(100,scoreTotal(id)/b.goal*100);label=`${Math.min(scoreTotal(id),b.goal)} / ${b.goal} puntos`;}
+      if(b.type==="items"){progress=Math.min(100,completedCount(id)/b.goal*100);label=`${completedCount(id)} / ${b.goal} aprendizajes`;}
+      if(b.type==="stage"){progress=stageProgress(id,b.goal);label=`Etapa ${b.goal}: ${progress}%`;}
+      return `<div class="badge-item ${has?"":"locked"}">
+        <span class="badge-icon">${has?b.icon:"🔒"}</span><strong>${esc(b.name)}</strong>
+        <small>${esc(b.description)}</small><div class="progress" style="margin-top:9px"><div style="width:${progress}%"></div></div>
+        <small>${has?"¡Desbloqueada!":esc(label)}</small>
+      </div>`;
+    }).join("")}</div>`;
 }
 function renderHistory(){
- const selected=document.getElementById("historyStudent").value;
- let rows=data.records.filter(r=>!selected||r.studentId===selected);
- rows.sort((a,b)=>new Date(b.date)-new Date(a.date));
- const box=document.getElementById("historyList");
- if(!rows.length){
-  box.innerHTML='<div class="empty">Todavía no hay aprendizajes registrados.</div>';return;
- }
- box.innerHTML=rows.map(r=>{
-  const s=studentById(r.studentId);
-  const st=STAGES.find(x=>x.id===r.stageId);
-  return `<div class="learn-row">
-   <strong>${esc(s?s.name:"Estudiante eliminado")}</strong>
-   <p style="margin:5px 0">${esc(r.item)}</p>
-   <span class="muted">${st?"Etapa "+st.id+" · "+esc(st.title):""} · ${new Date(r.date).toLocaleString("es-CL")}</span>
-   <p style="margin:5px 0;color:var(--primary);font-weight:bold">+${Number(r.score).toLocaleString("es-CL")} puntos</p>
-  </div>`;
- }).join("");
-}
-function profileUrl(id){
- const url=new URL(window.location.href);
- url.searchParams.set("student",id);
- return url.toString();
-}
-function showNfc(id){
- const s=studentById(id);
- if(!s)return;
- const url=profileUrl(id);
- const target=document.getElementById("nfcBox");
- if(target){
-  target.innerHTML=`<div class="notice">
-   <strong>Enlace de la tarjeta de ${esc(s.name)}</strong>
-   <p style="overflow-wrap:anywhere">${esc(url)}</p>
-   <p>Programa esta URL en una etiqueta NFC. Al leerla, el iPhone puede mostrar una notificación para abrir el enlace.</p>
-   <button class="primary" onclick="copyText('${url.replace(/'/g,"%27")}')">Copiar enlace NFC</button>
-  </div>`;
-  target.scrollIntoView({behavior:"smooth",block:"nearest"});
- }else{
-  alert("Enlace de perfil:\n"+url+"\n\nCópialo y prográmalo en una etiqueta NFC.");
- }
-}
-async function copyText(text){
- try{
-  await navigator.clipboard.writeText(text);
-  alert("Enlace copiado.");
- }catch(e){
-  prompt("Copia este enlace:",text);
- }
-}
-function exportData(){
- const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
- const url=URL.createObjectURL(blob);
- const a=document.createElement("a");
- a.href=url;a.download="LSCh-A1-respaldo-"+new Date().toISOString().slice(0,10)+".json";
- document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
-}
-function importData(){
- const file=document.getElementById("importFile").files[0];
- if(!file){alert("Selecciona primero un archivo JSON.");return;}
- if(!confirm("Esta acción reemplazará los datos actuales. ¿Ya guardaste una copia de seguridad?"))return;
- const reader=new FileReader();
- reader.onload=()=>{
-  try{
-   const parsed=JSON.parse(reader.result);
-   if(!parsed||!Array.isArray(parsed.students)||!Array.isArray(parsed.records))
-    throw new Error("Estructura no válida");
-   const validStudents=parsed.students.every(s=>s.id&&s.name);
-   const validRecords=parsed.records.every(r=>r.studentId&&r.stageId&&Number.isFinite(Number(r.score)));
-   if(!validStudents||!validRecords)throw new Error("Hay registros incompletos");
-   data={version:1,students:parsed.students,records:parsed.records,createdAt:parsed.createdAt||new Date().toISOString()};
-   saveData();
-   alert("Respaldo restaurado.");
-   document.getElementById("importFile").value="";
-  }catch(e){alert("No se pudo restaurar. Verifica que sea un respaldo JSON válido de LSCh A1.");}
- };
- reader.readAsText(file);
+  const selected=document.getElementById("historyStudent").value;
+  const rows=data.records.filter(r=>!selected||r.studentId===selected).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const box=document.getElementById("historyList");
+  if(!rows.length){box.innerHTML='<div class="empty">Todavía no hay aprendizajes registrados.</div>';return;}
+  box.innerHTML=rows.map(r=>{
+    const s=studentById(r.studentId),st=STAGES.find(x=>x.id===r.stageId);
+    return `<div class="learn-row"><strong>${esc(s?s.name:"Estudiante eliminado")}</strong>
+      <p style="margin:5px 0">${esc(r.item)}</p>
+      <span class="muted">${st?"Etapa "+st.id+" · "+esc(st.title):""} · ${new Date(r.date).toLocaleString("es-CL")}</span>
+      <p style="margin:5px 0;color:var(--primary);font-weight:bold">+${Number(r.score).toLocaleString("es-CL")} puntos</p>
+    </div>`;
+  }).join("");
 }
 
-// Abrir el perfil cuando la URL incluye ?student=ID.
-// Los datos deben existir en el almacenamiento local de este navegador.
+function profileUrl(id){
+  const url=new URL(window.location.href);
+  url.searchParams.set("student",id);
+  return url.toString();
+}
+function showNfc(id){
+  const s=studentById(id);if(!s)return;
+  const url=profileUrl(id);
+  const box=document.getElementById("profileBox");
+  box.classList.remove("hidden");
+  box.innerHTML=`
+    <div class="card">
+      <h2>📲 Tarjeta NFC</h2><h3>${esc(s.name)}</h3><p class="muted">${esc(s.course)}</p>
+      <label for="nfcLink">Enlace individual de la tarjeta</label>
+      <input id="nfcLink" readonly value="${esc(url)}">
+      <div class="actions">
+        <button class="primary" onclick="copyNfcLink()">📋 Copiar enlace NFC</button>
+        <button class="secondary" onclick="openNfcLink()">🔗 Probar enlace</button>
+        <button class="secondary" onclick="openProfile('${id}')">Volver al perfil</button>
+      </div>
+      <div class="notice">Programa este enlace en la tarjeta NFC. En un iPhone compatible puede aparecer una notificación para abrirlo. Los datos deben existir en el navegador que abre la página.</div>
+    </div>`;
+  box.scrollIntoView({behavior:"smooth",block:"start"});
+}
+async function copyNfcLink(){
+  const input=document.getElementById("nfcLink");if(!input)return;
+  try{
+    await navigator.clipboard.writeText(input.value);
+    const btn=document.querySelector("#profileBox .primary");
+    if(btn)btn.textContent="✅ Enlace copiado";
+  }catch(e){
+    input.select();
+    try{document.execCommand("copy");}catch(err){}
+  }
+}
+function openNfcLink(){
+  const input=document.getElementById("nfcLink");
+  if(input)window.open(input.value,"_blank");
+}
+async function copyProfileLink(id){
+  const url=profileUrl(id);
+  try{await navigator.clipboard.writeText(url);alert("Enlace copiado.");}
+  catch(e){prompt("Copia este enlace:",url);}
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download="LSCh-A1-respaldo-"+new Date().toISOString().slice(0,10)+".json";
+  document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+function importData(){
+  const file=document.getElementById("importFile").files[0];
+  if(!file){alert("Selecciona primero un archivo JSON.");return;}
+  if(!confirm("Esta acción reemplazará los datos actuales. ¿Ya guardaste una copia de seguridad?"))return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const parsed=JSON.parse(reader.result);
+      if(!parsed||!Array.isArray(parsed.students)||!Array.isArray(parsed.records))throw new Error();
+      if(!parsed.students.every(s=>s.id&&s.name)||!parsed.records.every(r=>r.studentId&&Number.isFinite(Number(r.score))))throw new Error();
+      data={version:1,students:parsed.students,records:parsed.records,createdAt:parsed.createdAt||new Date().toISOString()};
+      saveData();
+      document.getElementById("importFile").value="";
+      alert("Respaldo restaurado correctamente.");
+    }catch(e){alert("No se pudo restaurar. Comprueba que sea un respaldo JSON válido.");}
+  };
+  reader.readAsText(file);
+}
 function handleStudentLink(){
- const id=new URLSearchParams(window.location.search).get("student");
- if(!id)return;
- const s=studentById(id);
- if(!s){
-  alert("No se encontró este perfil en los datos guardados en este navegador. Registra el estudiante en este dispositivo o importa un respaldo.");
-  return;
- }
- selectedStudentId=id;
- renderAll();
- openProfile(id);
+  const id=new URLSearchParams(window.location.search).get("student");
+  if(!id)return;
+  const s=studentById(id);
+  if(!s)return;
+  selectedStudentId=id;
+  renderAll();
+  openProfile(id);
 }
 renderAll();
 handleStudentLink();
