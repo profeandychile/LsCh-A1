@@ -239,15 +239,15 @@ main{background:transparent}
 </section>
 
 <section class="view" id="view-about">
-  <h1 class="page-title">ProfeAndy</h1>
+  <h1 class="page-title">profendy</h1>
   <p class="page-subtitle">Sobre la creación de LSCh.</p>
   <div class="creator-card">
-    <div style="font-size:2.3rem">🤟</div>
+    <div style="font-size:2.3rem"></div>
     <h2>Una app para aprender e incluir</h2>
-    <p>LSCh fue creada por <strong>Andrés González, conocido como ProfeAndy</strong>, profesor de Educación Diferencial y psicopedagogo, con el propósito de acercar la Lengua de Señas Chilena al aprendizaje escolar y generar nuevas oportunidades de comunicación y participación.</p>
-    <p>Me encuentro en constante capacitación y formación, y quiero transmitir a mis estudiantes lo que voy aprendiendo, para que juntos podamos desarrollar nuevas habilidades, valorar distintas formas de comunicarnos y construir espacios educativos más inclusivos.</p>
+    <p>LSCh+ fue creada por <strong>Andrés González, conocido como profeandy_</strong>, profesor de Educación Diferencial del Colegio Aurora de Chile, Rancagua. El propósito es lograr acercar la Lengua de Señas Chilena al aprendizaje escolar y generar nuevas oportunidades de comunicación y participación.</p>
+    <p>¨Me encuentro en capacitación en Lengua de señas de la Fundación wazu.cl, y quiero transmitir a mis estudiantes lo que voy aprendiendo, para que juntos podamos desarrollar nuevas habilidades, valorar distintas formas de comunicarnos y construir espacios educativos más inclusivos¨.</p>
     <p>Esta aplicación es una herramienta de apoyo educativo en desarrollo. Busca acompañar el aprendizaje progresivo, reconocer los avances y motivar a cada estudiante a seguir aprendiendo.</p>
-    <div class="pill">Creada con propósito educativo</div>
+    <div class="pill">Acercar la inclusión con el corazón.</div>
   </div>
 </section>
 
@@ -413,7 +413,11 @@ document.getElementById("studentForm").addEventListener("submit",e=>{
 });
 document.addEventListener("click",e=>{
  const goto=e.target.closest("[data-goto]");if(goto){showView(goto.dataset.goto);return}
- const open=e.target.closest("[data-open-student]");if(open){renderStudentDetail(open.dataset.openStudent);return}
+ if(options.preserveScroll){
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    window.scrollTo({top:scrollTop,left:0,behavior:"auto"});
+  }));
+}
  const del=e.target.closest("[data-delete-student]");if(del){const s=studentById(del.dataset.deleteStudent);if(!s)return;if(confirm(`¿Eliminar a ${s.name} y todos sus avances de este navegador? Esta acción no se puede deshacer.`)){data.students=data.students.filter(x=>x.id!==s.id);saveData();renderAll();showToast("Estudiante eliminado.")}return}
  const stage=e.target.closest("[data-stage-open]");if(stage){const sel=document.getElementById("homeStudentSelect");const id=sel?sel.value:currentStudentId;if(id)openStage(id,Number(stage.dataset.stageOpen));else showView("students")}
 });
