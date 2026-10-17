@@ -1,2 +1,2 @@
-# LsCh-A1
+# LSCh+
 Aplicación educativa de Lengua de Señas Chilena.
