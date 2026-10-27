@@ -319,6 +319,7 @@ main{background:transparent}
 <div id="toast" class="toast hidden" role="status"></div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 "use strict";
 const STORAGE_KEY = "lsch_plus_data_v1";
@@ -531,5 +532,194 @@ function openInitialStudentFromUrl(){const id=new URLSearchParams(location.searc
 renderAll();
 openInitialStudentFromUrl();
 </script>
+
+
+<script>
+/* LSCh+ cloud layer. Replace the publishable-key placeholder before publishing. */
+(() => {
+  const SUPABASE_URL = "https://qiyiwjamrtcsvrtncuia.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_XLi0lnd_G72UeTVDWfD6kw_aDRvcgls";
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+  });
+  window.lschSupabase = client;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    #lsch-gate{position:fixed;inset:0;z-index:99999;background:#f3f7ff;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto;font-family:inherit;color:#18345e}
+    #lsch-gate .gate-card{width:min(100%,460px);background:#fff;border-radius:22px;padding:28px;box-shadow:0 14px 45px #12315b1a;border:1px solid #dce7fa}
+    #lsch-gate h1{margin:0 0 8px;font-size:1.8rem;color:#174b9b} #lsch-gate p{line-height:1.5;color:#50627e}
+    #lsch-gate label{display:block;font-weight:650;margin:14px 0 6px} #lsch-gate input{box-sizing:border-box;width:100%;padding:13px;border:1px solid #c8d5e8;border-radius:10px;font:inherit}
+    #lsch-gate button{border:0;border-radius:10px;background:#2456a6;color:white;padding:13px 16px;font:inherit;font-weight:700;cursor:pointer;width:100%;margin-top:14px}
+    #lsch-gate .gate-msg{margin-top:12px;font-size:.94rem;color:#9c3030;overflow-wrap:anywhere} #lsch-gate .muted{font-size:.9rem}
+    #lsch-cloud-actions{margin-left:auto;display:flex;gap:8px;align-items:center} #lsch-cloud-actions button{border:1px solid #d4dfef;background:white;color:#2456a6;border-radius:9px;padding:8px 10px;font-weight:650;cursor:pointer}
+    #lsch-public{position:fixed;inset:0;z-index:99998;background:#f3f7ff;overflow:auto;padding:20px;box-sizing:border-box;color:#18345e;font-family:inherit}
+    #lsch-public .public-wrap{max-width:850px;margin:0 auto} #lsch-public .public-card{background:white;border:1px solid #dce7fa;border-radius:18px;padding:20px;margin:12px 0;box-shadow:0 6px 20px #12315b0b}
+    #lsch-public h1{color:#174b9b} #lsch-public .public-bar{height:10px;background:#e6edf8;border-radius:20px;overflow:hidden} #lsch-public .public-bar span{display:block;height:100%;background:#3478d4}
+    #lsch-public .public-meta{color:#60718b;font-size:.92rem} #lsch-public .public-stage{border:1px solid #e1e9f5;border-radius:14px;padding:15px;margin:12px 0;background:#fff}
+  `;
+  document.head.appendChild(style);
+
+  const gate = document.createElement('div');
+  gate.id = 'lsch-gate';
+  gate.innerHTML = `<div class="gate-card"><h1>LSCh+</h1><p><strong>Aplicación docente</strong><br>Inicia sesión para administrar estudiantes y sincronizar sus avances.</p><form id="lsch-login-form"><label for="lsch-email">Correo docente</label><input id="lsch-email" type="email" autocomplete="username" required placeholder="tu correo"><label for="lsch-password">Contraseña</label><input id="lsch-password" type="password" autocomplete="current-password" required placeholder="Tu contraseña"><button id="lsch-login-btn" type="submit">Iniciar sesión</button></form><div id="lsch-login-msg" class="gate-msg" role="status"></div><p class="muted">Los estudiantes acceden desde su tarjeta NFC a una vista de consulta independiente.</p></div>`;
+  document.body.appendChild(gate);
+  document.querySelector('.app').style.display = 'none';
+
+  function gateMessage(msg, ok=false){ const el=document.getElementById('lsch-login-msg'); el.textContent=msg; el.style.color=ok?'#197348':'#9c3030'; }
+  function addCloudActions(){
+    const topbar=document.querySelector('.topbar');
+    if(!topbar || document.getElementById('lsch-cloud-actions')) return;
+    const wrap=document.createElement('div'); wrap.id='lsch-cloud-actions';
+    wrap.innerHTML='<button type="button" id="lsch-sync-now">Sincronizar</button><button type="button" id="lsch-logout">Cerrar sesión</button>';
+    topbar.appendChild(wrap);
+    document.getElementById('lsch-sync-now').addEventListener('click',async()=>{try{await syncCloud();showToast('Sincronización completada.')}catch(e){showToast('No se pudo sincronizar: '+friendlyError(e));}});
+    document.getElementById('lsch-logout').addEventListener('click',async()=>{await client.auth.signOut();location.href=location.pathname;});
+  }
+  function friendlyError(e){return (e && (e.message||e.error_description)) || 'revisa la conexión y los permisos';}
+  function showTeacherApp(){gate.style.display='none';document.querySelector('.app').style.display='';addCloudActions();}
+  function itemKeyFromRow(r){return String(r.item_key || `${r.stage_number}_0`);}
+
+  let currentUser=null, cloudReady=false, suppressSync=false, syncTimer=null, syncBusy=false;
+  const originalSaveData=saveData;
+  saveData=function(){const ok=originalSaveData();if(cloudReady&&!suppressSync)scheduleSync();return ok;};
+  function scheduleSync(){clearTimeout(syncTimer);syncTimer=setTimeout(()=>syncCloud().catch(e=>showToast('Aviso de sincronización: '+friendlyError(e))),700);}
+
+  async function loadCloudData(){
+    suppressSync=true;
+    // Keep the browser's current records in memory so first login does not overwrite an older local-only version.
+    const localStudents=Array.isArray(data.students)?data.students.map(s=>({...s,records:{...(s.records||{})}})):[];
+    const localById=new Map(localStudents.map(s=>[String(s.id),s]));
+    const {data:rows,error}=await client.from('lsch_students').select('id,local_id,name,course,created_at').eq('teacher_id',currentUser.id).order('created_at',{ascending:true});
+    if(error) throw error;
+    const ids=rows.map(x=>x.id);
+    let recordRows=[];
+    if(ids.length){const rr=await client.from('lsch_learning_records').select('id,student_id,stage_number,item_key,completed,completed_at').in('student_id',ids);if(rr.error)throw rr.error;recordRows=rr.data||[];}
+    const byStudent={};
+    recordRows.forEach(r=>{if(!r.completed)return;const key=itemKeyFromRow(r);(byStudent[r.student_id] ||= {})[key]={completedAt:r.completed_at||new Date().toISOString()};});
+    const matchedLocalIds=new Set();
+    const cloudStudents=rows.map(r=>{
+      const local=r.local_id?localById.get(String(r.local_id)):null;
+      if(local)matchedLocalIds.add(String(local.id));
+      const localRecords=local&&local.records?local.records:{};
+      return {id:(r.local_id|| (local&&local.id) ||uid()),cloudId:r.id,name:(r.name|| (local&&local.name)||'Estudiante'),course:r.course|| (local&&local.course)||'',createdAt:r.created_at||new Date().toISOString(),records:{...localRecords,...(byStudent[r.id]||{})}};
+    });
+    // Append local-only students so they can be migrated to the cloud after login.
+    const unmatchedLocal=localStudents.filter(s=>!matchedLocalIds.has(String(s.id)) && !rows.some(r=>String(r.local_id||'')===String(s.id)));
+    data={version:1,students:[...cloudStudents,...unmatchedLocal]};
+    // Assign stable local IDs to legacy cloud rows that did not have one.
+    for(const student of cloudStudents){const row=rows.find(r=>r.id===student.cloudId);if(row && !row.local_id){const {error:updateError}=await client.from('lsch_students').update({local_id:student.id}).eq('id',student.cloudId).eq('teacher_id',currentUser.id);if(updateError)throw updateError;}}
+    originalSaveData();
+    suppressSync=false; cloudReady=true; renderAll();
+    if(unmatchedLocal.length) scheduleSync();
+  }
+
+  async function syncCloud(){
+    if(!cloudReady||!currentUser||syncBusy)return;
+    syncBusy=true;
+    try{
+      const {data:remoteRows,error}=await client.from('lsch_students').select('id,local_id,name,course,created_at').eq('teacher_id',currentUser.id);
+      if(error)throw error;
+      const remoteByLocal=new Map((remoteRows||[]).filter(r=>r.local_id).map(r=>[r.local_id,r]));
+      for(const student of data.students){
+        const match=student.cloudId ? (remoteRows||[]).find(r=>r.id===student.cloudId) : remoteByLocal.get(String(student.id));
+        if(match){
+          const {error:upErr}=await client.from('lsch_students').update({name:student.name,course:student.course||'',local_id:String(student.id)}).eq('id',match.id).eq('teacher_id',currentUser.id);
+          if(upErr)throw upErr; student.cloudId=match.id;
+        }else{
+          const {data:newRow,error:insErr}=await client.from('lsch_students').insert({teacher_id:currentUser.id,local_id:String(student.id),name:student.name,course:student.course||''}).select('id,local_id').single();
+          if(insErr)throw insErr; student.cloudId=newRow.id;
+        }
+      }
+      const keepIds=data.students.map(s=>s.cloudId).filter(Boolean);
+      const remoteGone=(remoteRows||[]).filter(r=>!keepIds.includes(r.id)).map(r=>r.id);
+      if(remoteGone.length){const {error:delErr}=await client.from('lsch_students').delete().in('id',remoteGone).eq('teacher_id',currentUser.id);if(delErr)throw delErr;}
+      const studentIds=data.students.map(s=>s.cloudId).filter(Boolean);
+      if(studentIds.length){
+        const {data:oldRecords,error:oldErr}=await client.from('lsch_learning_records').select('id,student_id,stage_number,item_key').in('student_id',studentIds);
+        if(oldErr)throw oldErr;
+        const desired=[];
+        for(const student of data.students){
+          for(const [key,value] of Object.entries(student.records||{})){
+            if(!value)continue;
+            const bits=String(key).split('_');const stageNum=Number(bits[0]);
+            if(!Number.isInteger(stageNum)||stageNum<1||stageNum>10)continue;
+            desired.push({student_id:student.cloudId,stage_number:stageNum,item_key:String(key),completed:true,completed_at:value.completedAt||new Date().toISOString()});
+          }
+        }
+        if(desired.length){const {error:upRecErr}=await client.from('lsch_learning_records').upsert(desired,{onConflict:'student_id,stage_number,item_key'});if(upRecErr)throw upRecErr;}
+        const desiredKeys=new Set(desired.map(r=>`${r.student_id}|${r.stage_number}|${r.item_key}`));
+        const obsolete=(oldRecords||[]).filter(r=>!desiredKeys.has(`${r.student_id}|${r.stage_number}|${r.item_key}`)).map(r=>r.id);
+        if(obsolete.length){const {error:delRecErr}=await client.from('lsch_learning_records').delete().in('id',obsolete);if(delRecErr)throw delRecErr;}
+      }
+      originalSaveData();
+    } finally {syncBusy=false;}
+  }
+
+  async function publicStudentView(token){
+    gate.style.display='none'; document.querySelector('.app').style.display='none';
+    const view=document.createElement('div');view.id='lsch-public';view.innerHTML='<div class="public-wrap"><div class="public-card"><h1>LSCh+</h1><p>Consultando tu progreso…</p></div></div>';document.body.appendChild(view);
+    try{
+      if(!token || token.length<32)throw new Error('El enlace NFC no es válido.');
+      const {data:result,error}=await client.rpc('lsch_public_student_progress',{p_token:token});
+      if(error)throw error;
+      if(!result || !result.name)throw new Error('Este enlace no está activo. Pide a tu profesor que revise la tarjeta.');
+      const recs=result.records||[];const done=new Set(recs.filter(r=>r.completed).map(r=>String(r.item_key)));
+      let total=0,complete=0;stages.forEach((st,si)=>st.items.forEach((_,ii)=>{total++;if(done.has(`${si+1}_${ii}`))complete++;}));
+      const pct=total?Math.round(complete/total*100):0;
+      let html=`<div class="public-wrap"><div class="public-card"><div class="public-meta">VISTA DE ESTUDIANTE · SOLO CONSULTA</div><h1>LSCh+ · Mi progreso</h1><h2>${safeText(result.name)}</h2><p>${safeText(result.course||'Curso no indicado')}</p><div style="font-size:2rem;font-weight:800;color:#2456a6">${pct}%</div><div class="public-bar"><span style="width:${pct}%"></span></div><p class="public-meta">${complete} de ${total} aprendizajes completados</p></div>`;
+      stages.forEach((st,si)=>{const items=st.items;let d=0;items.forEach((_,ii)=>{if(done.has(`${si+1}_${ii}`))d++;});const p=Math.round(d/items.length*100);html+=`<div class="public-stage"><h3>Etapa ${si+1}: ${safeText(st.title)}</h3><p class="public-meta">${d} de ${items.length} aprendizajes · ${p}%</p><div class="public-bar"><span style="width:${p}%"></span></div><ul>${items.map((it,ii)=>`<li style="margin:7px 0">${done.has(`${si+1}_${ii}`)?'✅':'○'} ${safeText(it)}</li>`).join('')}</ul></div>`;});
+      html+='<div class="public-card"><p class="public-meta">Esta pantalla permite consultar el progreso. Para corregir o registrar aprendizajes, solicita apoyo a tu profesor.</p></div></div>';
+      view.innerHTML=html;
+    }catch(e){view.innerHTML=`<div class="public-wrap"><div class="public-card"><h1>LSCh+</h1><h2>No se pudo abrir el progreso</h2><p>${safeText(friendlyError(e))}</p><p class="public-meta">Solicita a tu profesor una tarjeta NFC activa.</p></div></div>`;}
+  }
+
+  // Public NFC links never show the teacher interface.
+  const params=new URLSearchParams(location.search);
+  const publicToken=params.get('token');
+  if(publicToken){publicStudentView(publicToken);return;}
+
+  document.getElementById('lsch-login-form').addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(SUPABASE_PUBLISHABLE_KEY.startsWith('REEMPLAZAR_')){gateMessage('Falta pegar la Publishable key de Supabase en el archivo antes de publicar.');return;}
+    const btn=document.getElementById('lsch-login-btn');btn.disabled=true;btn.textContent='Ingresando…';gateMessage('');
+    try{
+      const {data:authData,error}=await client.auth.signInWithPassword({email:document.getElementById('lsch-email').value.trim(),password:document.getElementById('lsch-password').value});
+      if(error)throw error;currentUser=authData.user;
+      await loadCloudData();showTeacherApp();
+      gateMessage('Sesión iniciada y datos sincronizados.',true);
+    }catch(err){gateMessage('No se pudo iniciar sesión o sincronizar. '+friendlyError(err));}
+    finally{btn.disabled=false;btn.textContent='Iniciar sesión';}
+  });
+
+  (async()=>{
+    if(SUPABASE_PUBLISHABLE_KEY.startsWith('REEMPLAZAR_')){gateMessage('Configuración pendiente: pega tu Publishable key en el archivo index.html antes de publicar.');return;}
+    try{
+      const {data:sessionData}=await client.auth.getSession();
+      if(sessionData.session){currentUser=sessionData.session.user;await loadCloudData();showTeacherApp();}
+    }catch(e){gateMessage('No se pudo cargar la sesión. '+friendlyError(e));}
+  })();
+
+  // NFC generation uses the authenticated RPC and creates tokenized links.
+  document.addEventListener('click',async e=>{
+    const btn=e.target.closest('#generateNfc');if(!btn)return;
+    e.preventDefault();e.stopImmediatePropagation();
+    if(!currentUser){showToast('Inicia sesión como docente.');return;}
+    const localId=document.getElementById('nfcStudent').value;const student=data.students.find(s=>String(s.id)===String(localId));
+    if(!student){showToast('Primero selecciona un estudiante.');return;}
+    try{
+      if(!student.cloudId){await syncCloud();}
+      if(!student.cloudId)throw new Error('No se encontró el registro en la nube.');
+      const {data:token,error}=await client.rpc('lsch_create_student_token',{p_student_id:student.cloudId});
+      if(error)throw error;
+      const base=location.href.split('?')[0].split('#')[0];
+      const url=base+'?token='+encodeURIComponent(token);
+      document.getElementById('nfcLink').value=url;document.getElementById('nfcResult').classList.remove('hidden');
+      showToast('Enlace NFC seguro generado. Guarda el enlace en la tarjeta.');
+    }catch(err){showToast('No se pudo generar el enlace: '+friendlyError(err));}
+  },true);
+})();
+</script>
+
 </body>
 </html>
