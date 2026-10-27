@@ -674,10 +674,36 @@ openInitialStudentFromUrl();
     }catch(e){view.innerHTML=`<div class="public-wrap"><div class="public-card"><h1>LSCh+</h1><h2>No se pudo abrir el progreso</h2><p>${safeText(friendlyError(e))}</p><p class="public-meta">Solicita a tu profesor una tarjeta NFC activa.</p></div></div>`;}
   }
 
-  // Public NFC links never show the teacher interface.
+  // NFC: si hay una sesión docente activa, abrir el perfil editable;
+  // si no hay sesión docente, mantener la vista pública de solo consulta.
   const params=new URLSearchParams(location.search);
   const publicToken=params.get('token');
-  if(publicToken){publicStudentView(publicToken);return;}
+  if(publicToken){
+    (async()=>{
+      try{
+        const {data:sessionData,error:sessionError}=await client.auth.getSession();
+        if(sessionError)throw sessionError;
+        const session=sessionData && sessionData.session;
+        if(!session){await publicStudentView(publicToken);return;}
+        currentUser=session.user;
+        await loadCloudData();
+        const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(publicToken));
+        const tokenHash=Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');
+        const {data:access,error:accessError}=await client.from('lsch_student_access')
+          .select('student_id').eq('token_hash',tokenHash).eq('active',true).maybeSingle();
+        if(accessError)throw accessError;
+        if(!access){await publicStudentView(publicToken);return;}
+        const student=data.students.find(s=>String(s.cloudId)===String(access.student_id));
+        if(!student){await publicStudentView(publicToken);return;}
+        showTeacherApp();
+        renderStudentDetail(student.id);
+      }catch(err){
+        // Si falla la identificación docente, no se conceden permisos de edición.
+        await publicStudentView(publicToken);
+      }
+    })();
+    return;
+  }
 
   document.getElementById('lsch-login-form').addEventListener('submit',async e=>{
     e.preventDefault();
